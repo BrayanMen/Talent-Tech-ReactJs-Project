@@ -6,20 +6,22 @@ function App() {
     const [data, setData] = useState([]);
     const [loanding, setLoanding] = useState(true);
 
-    const url = 'https://ddragon.leagueoflegends.com/cdn/14.9.1/data/en_US/champion.json';
+    const url = 'https://api.escuelajs.co/api/v1/products';
 
     useEffect(() => {
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                const champs = Object.values(data.data);
-                setData(champs);
-                setLoanding(false);
-            })
-            .catch(err => {
-                console.log('Error de carga: ', err);
-                setLoanding(false);
-            });
+        const fetchData = () =>{
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {                    
+                    setData(data);
+                    setLoanding(false);
+                })
+                .catch(err => {
+                    console.log('Error de carga: ', err);
+                    setLoanding(false);
+                });
+        }
+        fetchData()
     }, []);
     console.log(data);
 
@@ -30,10 +32,11 @@ function App() {
                 {data.map(d => {
                     return (
                         <div key={d.id}>
-                            <p>{d.name}</p>
+                            <p>{d.title}</p>
                             <img
-                                src={`https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/${d.image.full}`}
-                                alt={d.name}
+                                src={d.images[0]}
+                                alt={d.title}
+                                width="100px"
                             />
                         </div>
                     );
