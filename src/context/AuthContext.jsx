@@ -39,36 +39,40 @@ export const AuthProvider = ({ children }) => {
         setIsAuth(true);
         localStorage.setItem('user', JSON.stringify(userFound));
     };
-    const register = ({name, email, password, avatar})=>{
+    const register = ({ name, email, password, avatar }) => {
         const apiUsers = JSON.parse(localStorage.getItem('apiUser')) || [];
         const userExist = apiUsers.find(u => u.email === email);
-        if(userExist){
-            throw new Error("Usuario Existente")
+        if (userExist) {
+            throw new Error('Usuario Existente');
         }
         const newUser = {
             id: apiUsers.length + 1,
             name,
             email,
             password,
-            role: "Customer",
+            role: 'Customer',
             avatar: avatar || 'https://i.pravatar.cc/150?img=12',
             creationAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
-        }
+        };
         const userUpdated = [...apiUsers, newUser];
-        localStorage.setItem('apiUser', JSON.stringify(userUpdated))
-        setUsersApi(userPrev => [...userPrev, newUser])
-    }
+        localStorage.setItem('apiUser', JSON.stringify(userUpdated));
+        setUsersApi(userPrev => [...userPrev, newUser]);
+    };
     const logout = () => {
         setUser(null);
         setIsAuth(false);
-        localStorage.removeItem('user')
-    }
-    return (
-        <AuthProvider.Provider value={{user,isAuth,login,register, logout}}>
-            {children}
-        </AuthProvider.Provider>
-    )
+        localStorage.removeItem('user');
+    };
+
+    const value = {
+        user,
+        isAuth,
+        login,
+        register,
+        logout,
+    };
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContext;
