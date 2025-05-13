@@ -15,8 +15,7 @@ export const AuthProvider = ({ children }) => {
         const storageUser = JSON.parse(localStorage.getItem('user'));
         const apiUsers = JSON.parse(localStorage.getItem('apiUser')) || [];
 
-        fetch
-            .get('https://api.escuelajs.co/api/v1/users')
+        fetch('https://api.escuelajs.co/api/v1/users')
             .then(res => res.json())
             .then(dataApi => {
                 setUsersApi([...dataApi, ...apiUsers]);
@@ -29,8 +28,8 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = ({ email, password }) => {
-        const apiUsers = JSON.parse(localStorage.getItem('apiUser')) || [];
-        const usersCombined = [...usersApi, ...apiUsers];
+        const apiUserStorage = JSON.parse(localStorage.getItem('apiUser')) || [];
+        const usersCombined = [...usersApi, ...apiUserStorage];
 
         const userFound = usersCombined.find(u => u.email === email && u.password === password);
         if (!userFound) {
@@ -47,17 +46,29 @@ export const AuthProvider = ({ children }) => {
             throw new Error("Usuario Existente")
         }
         const newUser = {
-            id: apiUsers.length() + 1;
+            id: apiUsers.length + 1,
             name,
             email,
             password,
             role: "Customer",
             avatar: avatar || 'https://i.pravatar.cc/150?img=12',
-            reationAt: new Date().toISOString(),
+            creationAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
         }
-
-
-
+        const userUpdated = [...apiUsers, newUser];
+        localStorage.setItem('apiUser', JSON.stringify(userUpdated))
+        setUsersApi(userPrev => [...userPrev, newUser])
     }
+    const logout = () => {
+        setUser(null);
+        setIsAuth(false);
+        localStorage.removeItem('user')
+    }
+    return (
+        <AuthProvider.Provider value={{user,isAuth,login,register, logout}}>
+            {children}
+        </AuthProvider.Provider>
+    )
 };
+
+export default AuthContext;
