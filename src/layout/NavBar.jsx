@@ -18,7 +18,7 @@ const NavBar = () => {
     ];
     return (
         <header className="header_section">
-            <div>
+            
             <input type="checkbox" id="menu_toggle" className="menu_toggle" />
             <label htmlFor="menu_toggle" className="navbar_toggle--label">
                 <span></span>
@@ -35,7 +35,7 @@ const NavBar = () => {
                     ))}
                 </ul>
             </nav>
-            </div>
+           
         </header>
     );
 };
