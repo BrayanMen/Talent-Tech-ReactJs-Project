@@ -8,37 +8,32 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [usersApi, setUsersApi] = useState([]);
     const [isAuth, setIsAuth] = useState(false);
+    const API_URL = 'https://6825eaad397e48c913143248.mockapi.io/users';
 
     useEffect(() => {
         const storageUser = JSON.parse(localStorage.getItem('user'));
-        const apiUsers = JSON.parse(localStorage.getItem('apiUser')) || [];
-
-        fetch('https://api.escuelajs.co/api/v1/users')
-            .then(res => res.json())
-            .then(dataApi => {
-                setUsersApi([...dataApi, ...apiUsers]);
-            })
-            .catch(err => console.log('Error de Data: ', err));
         if (storageUser) {
             setUser(storageUser);
             setIsAuth(true);
         }
     }, []);
 
-    const login = ({ email, password }) => {
-        const apiUserStorage = JSON.parse(localStorage.getItem('apiUser')) || [];
-        const usersCombined = [...usersApi, ...apiUserStorage];
-
-        const userFound = usersCombined.find(u => u.email === email && u.password === password);
-        if (!userFound) {
-            throw new Error('Usuario Invalido');
+    const login = async ({ email, password }) => {
+        try {
+            const res = await fetch(`${API_URL}?email=${email}`);
+            if (!res.ok) throw new Error('Error al buscar el usuario');
+            const users = res.json();
+            const userFound = users.find(u => u.email === email && u.password === password);
+            if (!userFound) throw new Error('Usuario o Contraseña incorrecta!');
+            setUser(userFound);
+            setIsAuth(true);
+            localStorage.setItem('user', JSON.stringify(userFound));
+        } catch (err) {
+            console.log('Error: ', err);
         }
-        setUser(userFound);
-        setIsAuth(true);
-        localStorage.setItem('user', JSON.stringify(userFound));
     };
+    
     const register = ({ name, email, password, avatar }) => {
         const apiUsers = JSON.parse(localStorage.getItem('apiUser')) || [];
         const userExist = apiUsers.find(u => u.email === email);
