@@ -30,8 +30,8 @@ export default function HomePage() {
                     {data.map(d => {
                         return (
                             <div key={d.id}>
-                                <p>{d.name}</p>
-                                <img src={d.image} alt={d.name} />
+                                <p style={{color:"white"}}>{d.name}</p>
+                                <img src={d.image} alt={d.name} width={"100px"} />
                             </div>
                         );
                     })}
