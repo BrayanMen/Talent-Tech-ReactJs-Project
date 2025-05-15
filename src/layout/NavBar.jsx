@@ -37,7 +37,7 @@ const NavBar = () => {
     return (
         <header className="header_section">
             <div className="logo_container">                
-                    <h1 className={`logo_text logo_header ${isOpenMenu ? '' : 'open'}`}>Dark Clothes</h1>                
+                    <h1 className={`logo_text logo_header ${isOpenMenu ? '' : 'open'}`}>Amón <span>Luxary</span></h1>                
             </div>
             <input
                 type="checkbox"

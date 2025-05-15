@@ -136,6 +136,8 @@ h1 {
 }
 
 .hover_image-container {
+    padding: 0;
+    margin: 0;
     width: 50%;
     display: flex;
     justify-content: center;
@@ -170,6 +172,10 @@ h1 {
 }
 .logo_header.open{
     transform: translateY(0);
+
+    span{
+        color: var(--light-gray);
+    }
 }
 .logo_header{
     transition: var(--transition);
@@ -178,7 +184,9 @@ h1 {
 
 /* Media queries para dispositivos móviles */
 @media (max-width: 768px) { 
-     
+     .header_section{
+        align-items: flex-start;
+     }
     
     .header_nav-ul {
         width: 100%;
