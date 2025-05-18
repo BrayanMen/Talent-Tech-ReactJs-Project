@@ -1,14 +1,19 @@
 import HomePage from './pages/HomePage.jsx';
-import { Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainLayout from './layout/MainLayout.jsx';
+import { AuthProvider } from './context/AuthContext.jsx';
+import { CartProvider } from './context/CartContext.jsx';
 
 function App() {
     return (
-        <MainLayout>
-            <Routes>
-                <Route exact path="/" element={<HomePage />} />
-            </Routes>
-        </MainLayout>
+        <AuthProvider>
+            <CartProvider>
+                <MainLayout />
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                </Routes>
+            </CartProvider>
+        </AuthProvider>
     );
 }
 
