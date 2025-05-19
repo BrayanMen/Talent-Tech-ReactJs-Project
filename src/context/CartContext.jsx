@@ -6,6 +6,12 @@ export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
+    const [isOpenCart, setIsOpenCart] = useState(false);
+    
+
+    const toggleCart = () => {
+        setIsOpenCart(!isOpenCart);
+    }
 
     useEffect(() => {
         const localCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -55,13 +61,15 @@ export const CartProvider = ({ children }) => {
     }
 
     const values = {
+        cart, // Estado del carrito
+        isOpenCart,// State booleano para abrir o cerrar el carrito
         addToCart,
-        cart,
-        clearCart,
-        removeItemCart,
-        quantityUpdates,
-        totalCart,
-        itemCount
+        removeItemCart, // Eliminar un producto del carrito
+        quantityUpdates,// Actualizar la cantidad de un producto en el carrito
+        totalCart,// Total del carrito
+        itemCount,// Cantidad total de productos en el carrito
+        clearCart,// Limpiar el carrito
+        toggleCart,//Abrir el carrito
     };
 
     return <CartContext.Provider value={values}>{children}</CartContext.Provider>;
