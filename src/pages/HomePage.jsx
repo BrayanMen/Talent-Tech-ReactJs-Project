@@ -1,29 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useProduct } from '../context/ProductContext';
 
 export default function HomePage() {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const {products, loading} = useProduct()
     const [error, setError] = useState(null);
 
     const url = 'https://6825eaad397e48c913143248.mockapi.io/products';
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(
-                    'https://6825eaad397e48c913143248.mockapi.io/products'
-                );
-                if (!response.ok) throw new Error('Error al cargar productos');
-                const data = await response.json();
-                setData(data);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchData();
-    }, []);
+    
 
     if (loading) return <div className="">Cargando productos...</div>;
     if (error) return <div className="">{error}</div>;
@@ -32,7 +16,7 @@ export default function HomePage() {
         <div>
             <div>
                 <div>
-                    {data.map(d => {
+                    {products.map(d => {
                         return (
                             <div key={d.id}>
                                 <p style={{ color: 'white' }}>{d.name}</p>
