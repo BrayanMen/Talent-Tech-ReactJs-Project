@@ -17,10 +17,14 @@ export default function HomePage() {
         className="hero_background"          
         >
         </div>
-            <div className="hero__content">
-                <h1 className="hero__title">Bienvenido al FUTURO</h1>
-                <h3 className="hero__description">Explora tu estilo TeckWear.</h3>
-                <a href="#products" className="btn btn--primary">Ver productos</a>
+            <div className="hero_content">
+                <h1 className="hero_title">Bienvenido al FUTURO</h1>
+                <h3 className="hero_subtitle">Explora tu estilo TeckWear.</h3>
+                <p className='hero_p'>Materiales avanzados. Diseño de vanguardia. Funcionalidad inigualable.</p>
+                <div className='hero_buttons'>
+                <a href="#products" className="btn btn-secondary">Descubre más</a>
+                <a href="#products" className="btn btn-primary">Ver productos</a>
+                </div>
             </div>
         </section>
             <div>

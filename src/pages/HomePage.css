@@ -1,21 +1,20 @@
-.hero_section {    
-    height: 100dvh;
+.hero_section {
+    height: 100vh;
     width: 100%;
-    /* position: relative; */
     display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center;      
+    justify-content: center;
+    align-items: center;
+    animation: fadeInUp 1s ease-in-out;
 }
-.hero_mask {   
+.hero_mask {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: -1;
-    display: flex;    
-    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 .hero_background {
     position: absolute;
@@ -25,6 +24,42 @@
     z-index: -2;
     background-image: url('https://i0.wp.com/badhombremagazine.com/wp-content/uploads/2020/04/Techwear-scaled.jpg?fit=2560%2C1707&ssl=1');
     background-size: cover;
-    background-position: start;
+    background-position: unset;
     background-repeat: no-repeat;
-    width: 100%;}
+    width: 100%;
+}
+
+.hero_content {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    z-index: 2;
+}
+
+.hero-text {
+    max-width: 50%;
+}
+
+.hero_title {
+    color: var(--gold, white);
+    text-shadow: 0 0 15px var(--gold-hover);
+}
+
+.hero_subtitle {
+    padding-top: 0.5rem;
+    padding-inline: 2.5rem;
+}
+
+.hero_p {
+    padding-inline: 1.8rem;
+    padding-top: 0.2rem;
+}
+
+.hero_buttons {
+    display: flex;
+    margin-top: 10px;
+    gap: 1rem;
+    animation: fadeIn 1s ease-in-out 0.4s both;
+}

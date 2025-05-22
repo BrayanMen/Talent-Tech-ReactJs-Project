@@ -78,7 +78,7 @@ const NavBar = () => {
                                 />
                             ) : (
                                 <div className="logo_container">
-                                    <h2 className="logo_text">LOGO</h2>
+                                    <h2 className="logo_text">Amon <span>Luxary</span></h2>
                                 </div>
                             )}
                         </div>
