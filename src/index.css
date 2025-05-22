@@ -19,12 +19,13 @@
 
 body {
     background-color: var(--dark-bg);
+    color: white;
 }
 
 h1 {
     font-size: 3.2em;
     line-height: 1.1;
-    color: var(--light-gray);
+    /* color: var(--light-gray); */
     background-color: transparent;
 }
 
@@ -42,8 +43,8 @@ h1 {
     position: fixed;
     top: 90px;
     left: 0;
-    width: 99%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
     transform: translateX(-100%);
     transition: transform 0.4s ease;
     z-index: 1000;
@@ -79,7 +80,7 @@ h1 {
 .header_nav-li {
     list-style: none;
     color: var(--light-gray);
-    font-size: 1rem;
+    font-size: 1.5rem;
     padding: 0.5rem;
     transition: var(--transition);
     background-color: transparent;

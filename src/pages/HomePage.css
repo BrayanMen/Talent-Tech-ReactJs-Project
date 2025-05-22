@@ -1,0 +1,30 @@
+.hero_section {    
+    height: 100dvh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;      
+}
+.hero_mask {   
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    display: flex;    
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.hero_background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: -2;
+    background-image: url('https://i0.wp.com/badhombremagazine.com/wp-content/uploads/2020/04/Techwear-scaled.jpg?fit=2560%2C1707&ssl=1');
+    background-size: cover;
+    background-position: start;
+    background-repeat: no-repeat;
+    width: 100%;}
