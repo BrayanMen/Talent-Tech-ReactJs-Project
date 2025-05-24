@@ -1,0 +1,23 @@
+.spinner_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+}
+
+.spinner {
+  width: 200px;
+  height: 200px;
+  border: 10px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--color-gold, #d4af3781);
+  filter: drop-shadow(0 0 15px var(--gold));
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import './HomePage.css';
 import { useProduct } from '../context/ProductContext';
+import { Link, useLocation } from 'react-router-dom';
+import Spinner from '../components/ui/Spinner';
+import CardProduct from '../components/CardProduct';
+
 
 export default function HomePage() {
     const {products, loading} = useProduct()
     const [error, setError] = useState(null);
+    const [productsFeat, setProductsFeat] = useState([])
+
+    useEffect(()=>{
+        if(products.length > 0){
+            const productsRandom = [...products].sort(()=> 0.5 - Math.random());
+            const productsInStock = productsRandom.filter(p=> p.stock > 0 && p.available);
+            setProductsFeat(productsInStock.slice(0,4))
+        }
+    },[products])
   
-    if (loading) return <div className="">Cargando productos...</div>;
+    if (loading) return <div className=""><Spinner/></div>;
     if (error) return <div className="">{error}</div>;
 
     return (
@@ -22,21 +35,30 @@ export default function HomePage() {
                 <h3 className="hero_subtitle">Explora tu estilo TeckWear.</h3>
                 <p className='hero_p'>Materiales avanzados. Diseño de vanguardia. Funcionalidad inigualable.</p>
                 <div className='hero_buttons'>
-                <a href="#products" className="btn btn-secondary">Descubre más</a>
-                <a href="#products" className="btn btn-primary">Ver productos</a>
+                <Link to="/about" className="btn btn-secondary">Descubre más</Link>
+                <Link to="/products" className="btn btn-primary">Ver productos</Link>
                 </div>
             </div>
         </section>
-            <div>
+        <section className='featured_section'>
+            <div className='featured_container'>
+                <div className='featured_header'>
+                    <h2 className='hero_title'>Productos Destacados</h2>
+                    <Link to='/products' className='btn btn-secondary'>Ver mas</Link>
+                </div>
                 <div>
-                    {products.map(d => {
+                    {productsFeat.slice(0,5).map(p => {
                         return (
-                            <div key={d.id}>
-                                <p style={{ color: 'white' }}>{d.name}</p>
-                                <img src={d.images[0]} alt={d.name} width={'100px'} />
-                            </div>
+                            <CardProduct key={p.id} product={p}/>
                         );
                     })}
+                </div>
+            </div>
+
+        </section>
+            <div>
+                <div>
+                    
                 </div>
             </div>
         </div>
