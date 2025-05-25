@@ -15,6 +15,14 @@
     opacity: 0.6;
     filter: grayscale(1);
 }
+
+.out_stock label{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: rgba(255, 0, 0, 0.2);
+}
 .product_card-link{
     display: block;
     height: 100%;

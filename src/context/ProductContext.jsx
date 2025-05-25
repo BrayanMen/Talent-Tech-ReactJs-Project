@@ -10,6 +10,10 @@ const API_URL = 'https://6825eaad397e48c913143248.mockapi.io/products';
 export const ProductProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [displayProducts, setDisplayProducts] = useState([]);
+    const [page, setPage] = useState(1);
+    const [moreItems, setMoreItems] = useState(true);
+    const ITEMS_PER_PAGE = 8;
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -27,6 +31,32 @@ export const ProductProvider = ({ children }) => {
         };
         fetchProducts();
     }, []);
+
+    const loadInitialProducts = product => {
+        const init = product.slice(0, ITEMS_PER_PAGE);
+        setDisplayProducts(init);
+        setPage(1);
+        setMoreItems(product.length > ITEMS_PER_PAGE);
+    };
+
+    const loadingMoreProducts = () => {
+        if (loading || !moreItems) return;
+        setTimeout(() => {
+            const next = page + 1;
+            const startIndex = (next - 1) * ITEMS_PER_PAGE;
+            const endIndex = startIndex + ITEMS_PER_PAGE;
+            const newProducts = products.slice(startIndex, endIndex);
+
+            if (newProducts.length > 0) {
+                setDisplayProducts(p => [...p, ...newProducts]);
+                setPage(next);
+                setMoreItems(endIndex < products.length);
+            } else {
+                setMoreItems(false);
+            }
+            setLoading(false);
+        }, 800);
+    };
 
     const addProducts = async product => {
         try {
@@ -94,10 +124,14 @@ export const ProductProvider = ({ children }) => {
 
     const values = {
         products,
+        displayProducts,
         loading,
         addProducts,
         updateProduct,
         deleteProduct,
+        moreItems,
+        loadInitialProducts,
+        loadingMoreProducts
     };
 
     return <ProductContext.Provider value={values}>{children}</ProductContext.Provider>;
