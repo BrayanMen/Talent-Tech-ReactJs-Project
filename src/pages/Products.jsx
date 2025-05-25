@@ -26,7 +26,6 @@ export default function Products() {
     const queryParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
 
     console.log(displayProducts);
-    
 
     const categories = useMemo(() => [...new Set(products.map(p => p.category))], [products]);
     const tags = useMemo(() => [...new Set(products.flatMap(p => p.tags || []))], [products]);
@@ -203,9 +202,9 @@ export default function Products() {
                             </div>
                         </div>
                     </div>
-                    {showFilters&&(
-                        <div className='product_sidebar-panel'>
-                            <div className='product_sidebar-panel-header'>
+                    {showFilters && (
+                        <div className="product_sidebar-panel">
+                            <div className="product_sidebar-panel-header">
                                 <h3>Filtrados: </h3>
                                 <button>Limpiar filtros</button>
                             </div>
@@ -246,7 +245,6 @@ export default function Products() {
                                 ) : (
                                     <CardProduct product={product} />
                                 )}
-                                ;
                             </div>
                         ))}
                     </div>
