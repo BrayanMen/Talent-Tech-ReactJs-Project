@@ -46,7 +46,7 @@ export default function HomePage() {
                     <h2 className='hero_title'>Productos Destacados</h2>
                     <Link to='/products' className='btn btn-secondary'>Ver mas</Link>
                 </div>
-                <div>
+                <div className='products_grid'>
                     {productsFeat.slice(0,5).map(p => {
                         return (
                             <CardProduct key={p.id} product={p}/>

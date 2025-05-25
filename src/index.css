@@ -262,7 +262,7 @@ h1 {
 
 .footer_p {
     color: var(--gray-text);
-     font-size: 0.9rem;
+    font-size: 0.9rem;
 }
 
 /* Botones */
@@ -309,6 +309,12 @@ h1 {
 
 .input-field:focus {
     border-color: #ffd700; /* gold */
+}
+
+.products_grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
 }
 
 #toast-container {
@@ -365,6 +371,9 @@ h1 {
     .logo_text {
         font-size: 1.5rem;
     }
+    .navbar_container{
+        top: 80px;
+    }
 
     .header_nav-ul {
         width: 100%;
@@ -372,6 +381,15 @@ h1 {
 
     .hover_image-container {
         width: 100%;
+    }
+    .products_grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .products_grid {
+        grid-template-columns: repeat(1, 1fr);
     }
 }
 

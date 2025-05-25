@@ -22,6 +22,7 @@ export const ProductProvider = ({ children }) => {
                 if (!res.ok) throw new Error('Productos no encontrados');
                 const data = await res.json();
                 setProducts(data);
+                loadInitialProducts(data)
             } catch (err) {
                 toast.show('Error de carga de Productos.', 'error');
                 console.error('Error cargando productos: ', err.message);
@@ -32,8 +33,8 @@ export const ProductProvider = ({ children }) => {
         fetchProducts();
     }, []);
 
-    const loadInitialProducts = product => {
-        const init = product.slice(0, ITEMS_PER_PAGE);
+    const loadInitialProducts = (product) => {
+        const init = product.slice(0, ITEMS_PER_PAGE);        
         setDisplayProducts(init);
         setPage(1);
         setMoreItems(product.length > ITEMS_PER_PAGE);

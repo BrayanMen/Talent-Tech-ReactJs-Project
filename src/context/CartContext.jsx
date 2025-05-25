@@ -12,7 +12,7 @@ export const CartProvider = ({ children }) => {
     useEffect(() => {
         try {
             const localCart = JSON.parse(localStorage.getItem('cart'));
-            if (Array.isArray(localCart)) setCart(localCart);
+            if (localCart.length > 0) setCart(localCart);
         } catch (error) {
             console.warn('Error al cargar el carrito desde localStorage', error);
         }
@@ -34,9 +34,9 @@ export const CartProvider = ({ children }) => {
                     return item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item;
                 });
             }
-            toast.show(`¡${product.name} agregado al carrito!`, 'success');
             return [...prevCart, { ...product, quantity: 1 }];
         });
+        toast.show(`¡${product.name} agregado al carrito!`, 'success');
     };
 
     const removeItemCart = productID => {
