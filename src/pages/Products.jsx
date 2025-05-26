@@ -239,7 +239,7 @@ export default function Products() {
                             <div
                                 key={product.id}
                                 className="products_item"
-                                ref={i === filterProdu.length - 1 ? null : lastElementRef}
+                                ref={i === filterProdu.length - 1 ? lastElementRef : null}
                             >
                                 {view === 'list' ? (
                                     <div className={`products_card-list ${showFilters ? 'filter_panel': ''}`}>

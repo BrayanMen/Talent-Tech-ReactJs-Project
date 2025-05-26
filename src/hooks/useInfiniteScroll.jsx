@@ -18,7 +18,7 @@ const useInfiniteScroll = (fetchData, moreItems, loading) => {
                 }
             },
             {
-                rootMargin: '100px',
+                rootMargin: '200px',
                 threshold: 0.1,
             }
         );
