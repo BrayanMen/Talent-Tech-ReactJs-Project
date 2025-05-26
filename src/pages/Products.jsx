@@ -226,12 +226,12 @@ export default function Products() {
                         </button>
                     </div>
                 ) : (
-                    <div className={`products-grid ${view === 'list' ? 'list-view' : ''}`}>
+                    <div className={`products-grid  ${view === 'list' ? 'list-view' : ''}`}>
                         {filterProdu.map((product, i) => (
                             <div
                                 key={product.id}
                                 className="products_item"
-                                ref={i === filterProdu.length - 1 ? lastElementRef : null}
+                                ref={i === filterProdu.length - 1 ? null : lastElementRef}
                             >
                                 {view === 'list' ? (
                                     <div className="products_card-list">
