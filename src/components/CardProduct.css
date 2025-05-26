@@ -13,16 +13,19 @@
     transform: translateY(-5px);
 }
 .out_stock {
-    opacity: 0.6;
+    opacity: 0.7;
     filter: grayscale(1);
 }
 
-.out_stock label {
+.out_stock-h2 {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(255, 0, 0, 0.2);
+    z-index: 1500;
+    padding: 0.5rem 1rem;
+    color: white;
+    background-color: rgba(255, 0, 0, 0.479);
 }
 .product_card-link {
     display: block;

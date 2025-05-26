@@ -202,15 +202,23 @@ export default function Products() {
                             </div>
                         </div>
                     </div>
+
+                </div>
+                    <div className='product_filter-sidebar'>
                     {showFilters && (
-                        <div className="product_sidebar-panel">
-                            <div className="product_sidebar-panel-header">
-                                <h3>Filtrados: </h3>
-                                <button>Limpiar filtros</button>
+                        <div className="product_filter-panel">
+                            <div className="product_filter-panel-header">
+                                <h3 className='product_filter-panel-title'>Filtrados: </h3>
+                                <button 
+                                onClick={clearFilters}
+                                className='clear_filter-btn'>
+                                    Limpiar filtros
+                                </button>
                             </div>
+                            <div className='product_filter-section'></div>
                         </div>
                     )}
-                </div>
+                    </div>
                 {loading && filterProdu.length === 0 ? (
                     <>
                         <Spinner />
@@ -226,7 +234,7 @@ export default function Products() {
                         </button>
                     </div>
                 ) : (
-                    <div className={`products-grid  ${view === 'list' ? 'list-view' : ''}`}>
+                    <div className={`products-grid ${showFilters ? 'filter_panel': ''} ${view === 'list' ? 'list-view' : ''}`}>
                         {filterProdu.map((product, i) => (
                             <div
                                 key={product.id}
@@ -234,7 +242,7 @@ export default function Products() {
                                 ref={i === filterProdu.length - 1 ? null : lastElementRef}
                             >
                                 {view === 'list' ? (
-                                    <div className="products_card-list">
+                                    <div className={`products_card-list ${showFilters ? 'filter_panel': ''}`}>
                                         <div>
                                             <img src={product.images[0]} alt={product.name} />
                                         </div>

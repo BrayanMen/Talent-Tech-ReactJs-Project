@@ -53,7 +53,7 @@ export default function CardProduct({ product }) {
                         </div>
                     )}
                     {outStock && (
-                        <div>
+                        <div className='out_stock-h2'>
                             <h2>Agotado</h2>
                         </div>
                     )}
@@ -79,7 +79,7 @@ export default function CardProduct({ product }) {
                             </button>
                             <button
                                 onClick={handleAddCart}
-                                className={`product_card-btn cart-btn ${outStock ? 'disable' : ''}`}
+                                className={`product_card-btn ${outStock ? 'disabled' : ''}`}
                                 disabled={outStock}
                                 aria-label={outStock ? 'Agotado' : 'Agregar al carrito'}
                             >
