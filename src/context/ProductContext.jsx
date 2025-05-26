@@ -13,7 +13,7 @@ export const ProductProvider = ({ children }) => {
     const [displayProducts, setDisplayProducts] = useState([]);
     const [page, setPage] = useState(1);
     const [moreItems, setMoreItems] = useState(true);
-    const ITEMS_PER_PAGE = 8;
+    const ITEMS_PER_PAGE = 9;
 
     useEffect(() => {
         const fetchProducts = async () => {
