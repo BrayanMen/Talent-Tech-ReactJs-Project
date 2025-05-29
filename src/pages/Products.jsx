@@ -215,7 +215,95 @@ export default function Products() {
                                     Limpiar filtros
                                 </button>
                             </div>
-                            <div className='product_filter-section'></div>
+                            <div className='product_filter-section'>
+                                <div className='product_filter-category'>
+                                    <h4>Categorias</h4>
+                                    <ul className='product_filter-category-list'>
+                                        {categories.map((category,i) => (
+                                            <li key={i}>
+                                                <label className='product_filter-category-item'>
+                                                    <input
+                                                        type="checkbox"
+                                                        className='product_filter-category-checkbox'
+                                                        checked={filter.category.includes(category)}
+                                                        onChange={() => handleCategoryChange(category)}
+                                                    />
+                                                    {category}
+                                                </label>
+                                            </li>
+                                        ))}
+                                        </ul>
+                                </div>
+                                <div>
+                                    <h4>Etiquetas</h4>
+                                    <ul className='product_filter-tags-list'>
+                                        {tags.slice(0,10).map((tag, i) => (
+                                            <li key={i}>
+                                                <label className='product_filter-tags-item'>
+                                                    <input
+                                                        type="checkbox"
+                                                        className='product_filter-tags-checkbox'
+                                                        checked={filter.tags.includes(tag)}
+                                                        onChange={() => handleTagChange(tag)}
+                                                    />
+                                                    {tag}
+                                                </label>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4>Disponibilidad</h4>
+                                    <div className='product_filter-availability'>
+                                        <label className='product_filter-availability-item'>
+                                            <input
+                                                type="checkbox"
+                                                className='product_filter-availability-checkbox'
+                                                checked={filter.availability === true}
+                                                onChange={() => handleAvailabilityChange(true)}
+                                            />
+                                            En stock
+                                        </label>
+                                        <label className='product_filter-availability-item'>
+                                            <input
+                                                type="checkbox"
+                                                className='product_filter-availability-checkbox'
+                                                checked={filter.availability === false}
+                                                onChange={() => handleAvailabilityChange(false)}
+                                            />
+                                            Agotado
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4>Rango de Precio</h4>
+                                    <div className='product_filter-price'>
+                                        <input
+                                            type="number"
+                                            className='product_filter-price-input'
+                                            value={filter.price[0]}
+                                            onChange={e => handlePriceChange(0, e.target.value)}
+                                            min="0"
+                                            max={maxPrice}
+                                        />
+                                        <span>-</span>
+                                        <input
+                                            type="number"
+                                            className='product_filter-price-input'
+                                            value={filter.price[1]}
+                                            onChange={e => handlePriceChange(1, e.target.value)}
+                                            min="0"
+                                            max={maxPrice}
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4>Resultados</h4>
+                                    <p className='product_filter-results'>
+                                        {filterProdu.length} productos encontrados
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     )}
                     </div>
