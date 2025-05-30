@@ -47,53 +47,56 @@ export default function Products() {
     }, [maxPrice]);
 
     useEffect(() => {
-        if (!products || products.length === 0) return;
+        if (!products || products.length === 0) {
+            setFilterProdu([]);
+            return;
+        }
 
         let result = [...products];
 
         if (searchItems) {
             const lower = searchItems.toLowerCase();
-            result = result.filter(p => {
-                p.name.toLowerCase().includes(lower) ||
+            result = result.filter(
+                p =>
+                    p.name.toLowerCase().includes(lower) ||
                     p.description.toLowerCase().includes(lower) ||
-                    (p.tags && p.tags.some(tag => tag.toLowerCase().includes(lower)));
-            });
+                    (p.tags && p.tags.some(tag => tag.toLowerCase().includes(lower)))
+            );
         }
 
+        // Filtro por categoría
         if (filter.category.length > 0) {
-            result = result.filter(p => {
-                filter.category.includes(p.category);
-            });
+            result = result.filter(p => filter.category.includes(p.category));
         }
 
+        // Filtro por precio
         result = result.filter(p => p.price >= filter.price[0] && p.price <= filter.price[1]);
 
+        // Filtro por disponibilidad
         if (filter.availability !== null) {
-            result = result.filter(p => (p.stock > 0 && p.avaible) === filter.availability);
+            result = result.filter(p => (p.stock > 0 && p.available) === filter.availability);
         }
 
+        // Filtro por etiquetas
         if (filter.tags.length > 0) {
             result = result.filter(p => p.tags && filter.tags.some(t => p.tags.includes(t)));
         }
-
         setFilterProdu(result);
     }, [products, filter, searchItems]);
 
-    const handleCategoryChange = useCallback(category => {
+    const handleCategoryChange = useCallback(categoryItem => {
         setFilter(prev => ({
             ...prev,
-            category: prev.category.includes(category)
-                ? prev.category.filter(c => c !== category)
-                : [...prev.category, category],
+            category: prev.category.includes(categoryItem)
+                ? prev.category.filter(c => c !== categoryItem)
+                : [...prev.category, categoryItem],
         }));
     }, []);
 
     const handleTagChange = useCallback(tag => {
         setFilter(prev => ({
             ...prev,
-            tags: prev.tags.includes(tag)
-                ?  prev.tags.filter(t => t !== tag)
-                : [...prev.tags, tag],
+            tags: prev.tags.includes(tag) ? prev.tags.filter(t => t !== tag) : [...prev.tags, tag],
         }));
     }, []);
 
@@ -245,7 +248,7 @@ export default function Products() {
                                                 className={`product_filter-tag-btn ${
                                                     filter.tags.includes(t) ? 'active' : ''
                                                 } `}
-                                                onChange={() => handleTagChange(t)}
+                                                onClick={() => handleTagChange(t)}
                                             >
                                                 {t}
                                             </button>
@@ -329,7 +332,7 @@ export default function Products() {
                         <p className="no-products-subtitle">
                             Intente ajustar sus filtros o busquedas.
                         </p>
-                        <button onClick={{ clearFilters }} className="btn btn-secondary">
+                        <button onClick={clearFilters} className="btn btn-secondary">
                             Limpiar Filtros
                         </button>
                     </div>
@@ -366,6 +369,7 @@ export default function Products() {
                     </div>
                 )}
                 {loading && filterProdu.length > 0 && <Spinner />}
+                <br />
                 {!loading && !moreItems && filterProdu.length > 0 && (
                     <div className="end_msg">Llegaste al final de nuestros productos</div>
                 )}
