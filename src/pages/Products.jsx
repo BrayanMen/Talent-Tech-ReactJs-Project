@@ -222,10 +222,16 @@ export default function Products() {
                                     <ul className="product_filter-category-list">
                                         {categories.map((category, i) => (
                                             <li key={i}>
-                                                <label className="product_filter-category-item">
+                                                <label
+                                                    className={`product_filter-category-item ${
+                                                        filter.category.includes(category)
+                                                            ? 'active'
+                                                            : ''
+                                                    }`}
+                                                >
                                                     <input
                                                         type="checkbox"
-                                                        className="product_filter-category-checkbox"
+                                                        className=""
                                                         checked={filter.category.includes(category)}
                                                         onChange={() =>
                                                             handleCategoryChange(category)
@@ -238,8 +244,8 @@ export default function Products() {
                                     </ul>
                                 </div>
 
-                                <div>
-                                    <h4>Etiquetas</h4>
+                                <div className="product_filter-tags-section">
+                                    <h4 className="product_filter-title">Etiquetas</h4>
                                     <div className="product_filter-tags">
                                         {allTags.slice(0, 10).map(t => (
                                             <button
@@ -256,22 +262,28 @@ export default function Products() {
                                     </div>
                                 </div>
 
-                                <div>
-                                    <h4>Disponibilidad</h4>
-                                    <div className="product_filter-availability">
-                                        <label className="product_filter-availability-item">
+                                <div className="product_filter-availability-section">
+                                    <h4 className="product_filter-title">Disponibilidad</h4>
+                                    <div className="product_filter-availability-items">
+                                        <label
+                                            className={`product_filter-availability-item ${
+                                                filter.availability === true ? 'active' : ''
+                                            }`}
+                                        >
                                             <input
                                                 type="checkbox"
-                                                className="product_filter-availability-checkbox"
                                                 checked={filter.availability === true}
                                                 onChange={() => handleAvailabilityChange(true)}
                                             />
                                             En stock
                                         </label>
-                                        <label className="product_filter-availability-item">
+                                        <label
+                                            className={`product_filter-availability-item ${
+                                                filter.availability === false ? 'active' : ''
+                                            }`}
+                                        >
                                             <input
                                                 type="checkbox"
-                                                className="product_filter-availability-checkbox"
                                                 checked={filter.availability === false}
                                                 onChange={() => handleAvailabilityChange(false)}
                                             />
@@ -279,10 +291,11 @@ export default function Products() {
                                         </label>
                                     </div>
                                 </div>
-                                <div>
-                                    <h4>Rango de Precio</h4>
+
+                                <div className="product_filter-price-section">
+                                    <h4 className="product_filter-title">Rango de Precio</h4>
                                     <div className="product_filter-price">
-                                        <div>
+                                        <div className="product_filter-price-display">
                                             <span>
                                                 <DollarSign />
                                                 {filter.price[0]}
@@ -292,31 +305,27 @@ export default function Products() {
                                                 {filter.price[1]}
                                             </span>
                                         </div>
-                                        <input
-                                            type="range"
-                                            min="0"
-                                            max={maxPrice}
-                                            step="1"
-                                            className="product_filter-price-input min-price"
-                                            value={filter.price[0]}
-                                            onChange={e => handlePriceChange(0, e.target.value)}
-                                        />
-                                        <input
-                                            type="range"
-                                            min="0"
-                                            max={maxPrice}
-                                            className="product_filter-price-input max-price"
-                                            value={filter.price[1]}
-                                            onChange={e => handlePriceChange(1, e.target.value)}
-                                        />
-                                        <div className="product_filter-slider-track"></div>
+                                        <div className="product_filter-price-slider">
+                                            <input
+                                                type="range"
+                                                min="0"
+                                                max={maxPrice}
+                                                step="1"
+                                                className="product_filter-price-input min-price"
+                                                value={filter.price[0]}
+                                                onChange={e => handlePriceChange(0, e.target.value)}
+                                            />
+                                            <input
+                                                type="range"
+                                                min="0"
+                                                max={maxPrice}
+                                                className="product_filter-price-input max-price"
+                                                value={filter.price[1]}
+                                                onChange={e => handlePriceChange(1, e.target.value)}
+                                            />
+                                            <div className="product_filter-slider-track"></div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <h4>Resultados</h4>
-                                    <p className="product_filter-results">
-                                        {filterProdu.length} productos encontrados
-                                    </p>
                                 </div>
                             </div>
                         </div>
