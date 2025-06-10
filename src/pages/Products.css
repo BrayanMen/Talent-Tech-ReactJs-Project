@@ -184,6 +184,7 @@
 .product_filter-section {
     margin-bottom: 1rem;
     display: flex;
+    gap: 1rem;
     flex-direction: column;
 }
 
@@ -253,17 +254,15 @@
     background-color: var(--gold-hover);
     color: var(--charcoal);
 }
-
-/* .product_filter-price {
+.product_filter-price-section {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    padding: 1.5rem;
+    width: 100%;
     background-color: var(--charcoal);
     border-radius: 4px;
     color: var(--light-gray);
 }
-
 .product_filter-price-display {
     display: flex;
     align-items: center;
@@ -273,8 +272,8 @@
 }
 .product_filter-price-slider {
     position: relative;
-} */
-/* .product_filter-price-input {
+}
+.product_filter-price-input {
     position: absolute;
     top: 0;
     width: 100%;
@@ -285,34 +284,32 @@
     appearance: none;
     z-index: 2;
 }
-
 .product_filter-price-input::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  background: var(--gold-hover);
-  cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: var(--gold-hover);
+    cursor: pointer;
 }
 .product_filter-price-input::-moz-range-thumb {
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  background: var(--gold);
-  cursor: pointer;
-  border: none;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: var(--gold);
+    cursor: pointer;
+    border: none;
 }
-
 .product_filter-slider-track {
-  position: absolute;
-  top: 0.5875rem;
-  left: 0;
-  right: 0;
-  height: 0.3rem;
-  background-color: var(--light-gray);
-  z-index: 1;
-} */
+    position: absolute;
+    top: 0.5875rem;
+    left: 0;
+    right: 0;
+    height: 0.3rem;
+    background-color: var(--light-gray);
+    z-index: 1;
+}
 
 /* PRODUCTOS  */
 .products-grid {
@@ -355,7 +352,13 @@
     background-color: #1a1a1a;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1100px){
+    .products-grid.filter_panel{
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        width: 70%;
+    }
+}
+@media (max-width: 868px) {
     .filter-sections {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -388,6 +391,14 @@
         display: flex;
         flex-direction: row;
         gap: 1rem;
+    }
+}
+
+
+@media (max-width: 450px){
+    .product_filter-tags-section {
+        display: none
+        ;
     }
 }
 

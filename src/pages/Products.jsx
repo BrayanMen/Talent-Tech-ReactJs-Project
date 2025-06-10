@@ -3,12 +3,16 @@ import { useProduct } from '../context/ProductContext';
 import { useLocation } from 'react-router-dom';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import './Products.css';
-import { DollarSign, FilterIcon, Grid, List, SearchIcon, X } from 'lucide-react';
+import { DollarSign, FilterIcon, Grid, HeartPlus, List, Plus, SearchIcon, X } from 'lucide-react';
 import Spinner from '../components/ui/Spinner';
 import CardProduct from '../components/CardProduct';
+import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 
 export default function Products() {
     const { products, loading, moreItems, loadingMoreProducts, displayProducts } = useProduct();
+    const { isAuth, user, handleWishlistProduct } = useAuth();
+    const { addToCart } = useCart();
     const location = useLocation();
     const [filterProdu, setFilterProdu] = useState([]);
     const [filter, setFilter] = useState({
@@ -217,31 +221,65 @@ export default function Products() {
                                 </button>
                             </div>
                             <div className="product_filter-section">
-                                <div className="product_filter-category">
-                                    <h4 className="product_filter-title">Categorias</h4>
-                                    <ul className="product_filter-category-list">
-                                        {categories.map((category, i) => (
-                                            <li key={i}>
-                                                <label
-                                                    className={`product_filter-category-item ${
-                                                        filter.category.includes(category)
-                                                            ? 'active'
-                                                            : ''
-                                                    }`}
-                                                >
-                                                    <input
-                                                        type="checkbox"
-                                                        className=""
-                                                        checked={filter.category.includes(category)}
-                                                        onChange={() =>
-                                                            handleCategoryChange(category)
-                                                        }
-                                                    />
-                                                    {category}
-                                                </label>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                <div>
+                                    <div className="product_filter-category">
+                                        <h4 className="product_filter-title">Categorias</h4>
+                                        <ul className="product_filter-category-list">
+                                            {categories.map((category, i) => (
+                                                <li key={i}>
+                                                    <label
+                                                        className={`product_filter-category-item ${
+                                                            filter.category.includes(category)
+                                                                ? 'active'
+                                                                : ''
+                                                        }`}
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            className=""
+                                                            checked={filter.category.includes(
+                                                                category
+                                                            )}
+                                                            onChange={() =>
+                                                                handleCategoryChange(category)
+                                                            }
+                                                        />
+                                                        {category}
+                                                    </label>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+
+                                    <div className="product_filter-availability-section">
+                                        <h4 className="product_filter-title">Disponibilidad</h4>
+                                        <div className="product_filter-availability-items">
+                                            <label
+                                                className={`product_filter-availability-item ${
+                                                    filter.availability === true ? 'active' : ''
+                                                }`}
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    checked={filter.availability === true}
+                                                    onChange={() => handleAvailabilityChange(true)}
+                                                />
+                                                En stock
+                                            </label>
+                                            <label
+                                                className={`product_filter-availability-item ${
+                                                    filter.availability === false ? 'active' : ''
+                                                }`}
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    checked={filter.availability === false}
+                                                    onChange={() => handleAvailabilityChange(false)}
+                                                />
+                                                Agotado
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div className="product_filter-tags-section">
@@ -259,36 +297,6 @@ export default function Products() {
                                                 {t}
                                             </button>
                                         ))}
-                                    </div>
-                                </div>
-
-                                <div className="product_filter-availability-section">
-                                    <h4 className="product_filter-title">Disponibilidad</h4>
-                                    <div className="product_filter-availability-items">
-                                        <label
-                                            className={`product_filter-availability-item ${
-                                                filter.availability === true ? 'active' : ''
-                                            }`}
-                                        >
-                                            <input
-                                                type="checkbox"
-                                                checked={filter.availability === true}
-                                                onChange={() => handleAvailabilityChange(true)}
-                                            />
-                                            En stock
-                                        </label>
-                                        <label
-                                            className={`product_filter-availability-item ${
-                                                filter.availability === false ? 'active' : ''
-                                            }`}
-                                        >
-                                            <input
-                                                type="checkbox"
-                                                checked={filter.availability === false}
-                                                onChange={() => handleAvailabilityChange(false)}
-                                            />
-                                            Agotado
-                                        </label>
                                     </div>
                                 </div>
 
@@ -351,30 +359,95 @@ export default function Products() {
                             view === 'list' ? 'list-view' : ''
                         }`}
                     >
-                        {filterProdu.map((product, i) => (
-                            <div
-                                key={product.id}
-                                className="products_item"
-                                ref={i === filterProdu.length - 1 ? lastElementRef : null}
-                            >
-                                {view === 'list' ? (
-                                    <div
-                                        className={`products_card-list ${
-                                            showFilters ? 'filter_panel' : ''
-                                        }`}
-                                    >
-                                        <div>
-                                            <img src={product.images[0]} alt={product.name} />
+                        {filterProdu.map((product, i) => {
+                            const outStock = product.stock === 0 || !product.available;
+                            const inWishList = isAuth && user?.wishlist?.includes(product.id);
+
+                            const handleAddCart = e => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                if (!outStock) addToCart(product);
+                            };
+
+                            const handleWishList = e => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                if (isAuth) {
+                                    handleWishlistProduct(product.id);
+                                }
+                            };
+                            return (
+                                <div
+                                    key={product.id}
+                                    className="products_item"
+                                    ref={i === filterProdu.length - 1 ? lastElementRef : null}
+                                >
+                                    {view === 'list' ? (
+                                        <div
+                                            className={`products_card-list ${
+                                                showFilters ? 'filter_panel' : ''
+                                            }`}
+                                        >
+                                            <div>
+                                                <img src={product.images[0]} alt={product.name} />
+                                            </div>
+                                            <div>
+                                                <div>
+                                                    <h2>{product.name}</h2>
+                                                    <p>${product.price.toFixed(2)}</p>
+                                                    <p className="product_description">
+                                                        {product.description}
+                                                    </p>
+                                                    <div>
+                                                        {product.tags &&
+                                                            product.tags.map((tag, i) => (
+                                                                <span
+                                                                    key={i}
+                                                                    className="product-tag"
+                                                                >
+                                                                    {tag}
+                                                                </span>
+                                                            ))}
+                                                    </div>
+                                                    <div className="product-card-actions">
+                                                        <button
+                                                            onClick={handleWishList}
+                                                            className={`product_card-btn ${
+                                                                inWishList ? 'active' : ''
+                                                            }`}
+                                                            aria-label={
+                                                                inWishList
+                                                                    ? 'Remover de favoritos'
+                                                                    : 'Agregar a favoritos'
+                                                            }
+                                                            disabled={!isAuth}
+                                                        >
+                                                            <HeartPlus size={30} />
+                                                        </button>
+                                                        <button
+                                                            onClick={handleAddCart}
+                                                            className={`product_card-btn ${
+                                                                outStock ? 'disabled' : ''
+                                                            }`}
+                                                            disabled={outStock}
+                                                            aria-label={
+                                                                outStock
+                                                                    ? 'Agotado'
+                                                                    : 'Agregar al carrito'
+                                                            }
+                                                        >
+                                                            <Plus size={30} />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <h2>{product.name}</h2>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <CardProduct product={product} />
-                                )}
-                            </div>
-                        ))}
+                                    ) : (
+                                        <CardProduct product={product} />
+                                    )}
+                                </div>
+                            );
+                        })}
                     </div>
                 )}
                 {loading && filterProdu.length > 0 && <Spinner />}
