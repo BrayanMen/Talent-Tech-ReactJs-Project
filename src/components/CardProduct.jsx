@@ -45,7 +45,7 @@ export default function CardProduct({ product }) {
                     )}
                     {product.tags && product.tags.length > 0 && (
                         <div className="product_card-tags">
-                            {product.tags.slice(0.2).map((tag, i) => (
+                            {product.tags.slice(0, 2).map((tag, i) => (
                                 <span key={i} className="product_card-tag">
                                     {tag}
                                 </span>
@@ -53,7 +53,7 @@ export default function CardProduct({ product }) {
                         </div>
                     )}
                     {outStock && (
-                        <div className='out_stock-h2'>
+                        <div className="out_stock-h2">
                             <h2>Agotado</h2>
                         </div>
                     )}
@@ -88,10 +88,10 @@ export default function CardProduct({ product }) {
                         </div>
                     </div>
                 </div>
-                <div className='product_card-info'>
-                    <h3 className='product_card-title'>{product.name}</h3>
-                    <p className='product_card-price'>${product.price.toFixed(2)}</p>
-                    <p className='product_card-descrip'>{product.description.substring(0, 70)}...</p>
+                <div className="product_card-info">
+                    <h3 className="product_card-title">{product.name}</h3>
+                    <p className="product_card-price">${product.price.toFixed(2)}</p>
+                    <p className="product_card-descrip">{product.description.substring(0, 70)}...</p>
                 </div>
             </Link>
         </div>
