@@ -116,7 +116,6 @@ function ProductFilters({
                                 type="range"
                                 min="0"
                                 max={maxPrice}
-                                step="1"
                                 className="product_filter-price-input min-price"
                                 value={filter.price[0]}
                                 onChange={e => handlePriceChange(0, e.target.value)}

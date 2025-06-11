@@ -1,15 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext.jsx';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext.jsx';
 import { CircleUser, ShoppingBasket } from 'lucide-react';
 
-const NavBar = () => {
+const NavBar = ({ openLoginModal }) => {
     const { user, isAuth, logout } = useAuth();
     const { itemCount, toggleCart } = useCart();
     const [isOpenMenu, setIsOpenMenu] = useState(false);
+    const [isOpenUserMenu, setIsOpenUserMenu] = useState(false);
     const [hoveredItem, setHoveredItem] = useState(null);
     const location = useLocation();
+    const navigate = useNavigate();
+
+    const logoutUser = () => {
+        logout();
+        setIsOpenMenu(false);
+        navigate('/');
+    };
+
+    const handleLoginClick = () => {
+        isAuth ? logoutUser() : openLoginModal();
+    };
+
+    const handleCartClick = () => {
+        !isAuth ? openLoginModal() : toggleCart();
+    };
+
+    const handleWishlistClick = () => {
+        !isAuth ? openLoginModal() : navigate('/wishlist');
+    };
 
     const navBarItems = [
         {
@@ -22,11 +42,6 @@ const NavBar = () => {
             link: '/products',
             image: 'https://techwearstorm.com/cdn/shop/files/techwear-cape-sakaide-s-storm-803.webp?v=1724751901',
         },
-        // {
-        //     name: 'Servicios',
-        //     link: '/services',
-        //     image: 'https://images.unsplash.com/photo-1596120236172-231808e800d1?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dGVjaCUyMHNlcnZpY2VzfGVufDB8fDB8fHww',
-        // },
         {
             name: 'Contacto',
             link: '/contact',
@@ -50,13 +65,95 @@ const NavBar = () => {
                 </h1>
             </div>
             <div className="header_btns">
-                <i>
-                <CircleUser size={30}/>
-                </i>
-                <i>
-                <ShoppingBasket size={32}/>
-                </i>
+                {isAuth ? (
+                    <div>
+                        <button
+                            onClick={() => setIsOpenUserMenu(!isOpenUserMenu)}
+                            className="header-btn user-btn"
+                            aria-label="Menu de usuario"
+                            aria-expanded={isOpenUserMenu}
+                            aria-haspopup="true"
+                        >
+                            <img src={user.avatar} alt={`${user.name} avatar`} className="avatar" />
+                        </button>
+                        {isOpenUserMenu && (
+                            <div role="menu" className="user-menu">
+                                <div className="user-info">
+                                    <img
+                                        src={user.avatar}
+                                        alt={`${user.name} avatar`}
+                                        className="avatar"
+                                    />
+                                    <div className="user-details">
+                                        <h3 className="">{user.name}</h3>
+                                        <h3 className="">{user.email}</h3>
+                                    </div>
+                                </div>
+                                <div className="dropdown-divisor"></div>
+                                <Link
+                                    to="/profile"
+                                    className="dropdown-item"
+                                    onClick={() => setIsOpenUserMenu(false)}
+                                    role="menuitem"
+                                >
+                                    👤 Perfil
+                                </Link>
+                                <button
+                                    onClick={() => {
+                                        setIsOpenUserMenu(false);
+                                        handleWishlistClick();
+                                    }}
+                                    className="dropdown-item"
+                                    role="menuitem"
+                                >
+                                    ❤️ Favoritos
+                                </button>
+                                <div className="dropdown-divisor"></div>
+                                <button
+                                    onClick={() => {
+                                        setIsOpenUserMenu(false);
+                                        logoutUser();
+                                    }}
+                                    className="dropdown-item logout-btn"
+                                    role="menuitem"
+                                >
+                                    🚪 Cerrar Sesion
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <div>
+                        <button>
+                            <Link
+                                to="/login"
+                                className="header-btn login-btn"
+                                onClick={handleLoginClick}
+                                aria-label="Iniciar sesión"
+                            >
+                                <i>
+                                    <CircleUser size={30} />
+                                </i>
+                            </Link>
+                        </button>
+                        <button className="header-btn cart-btn" onClick={handleCartClick}
+                         aria-label={`Carrito de compras con ${itemCount} items`}>
+                            <i>
+                                <ShoppingBasket size={32} />
+                            </i>
+                            {itemCount > 0 && (
+                                <span
+                                    className="cart-count"
+                                    aria-label={`${itemCount} items en el carrito`}
+                                >
+                                    {itemCount}
+                                </span>
+                            )}
+                        </button>
+                    </div>
+                )}
             </div>
+
             <input
                 type="checkbox"
                 id="menu_toggle"
@@ -84,10 +181,19 @@ const NavBar = () => {
                                     >
                                         <p>{item.name}</p>
                                     </Link>
+                                    {isAuth && (
+                                        <Link to="/wishlist" className="header_nav-link">
+                                            Favoritos
+                                        </Link>
+                                    )}
+                                    {user?.role === 'admin' && (
+                                        <Link to="/admin" className="header_nav-link">
+                                            Admin
+                                        </Link>
+                                    )}
                                 </li>
                             ))}
                         </ul>
-
                         <div className="hover_image-container">
                             {hoveredItem !== null ? (
                                 <img

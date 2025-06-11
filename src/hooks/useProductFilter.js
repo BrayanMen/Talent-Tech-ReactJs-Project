@@ -5,7 +5,7 @@ export const useProductFilter = products => {
     const location = useLocation();
     const [filter, setFilter] = useState({
         category: [],
-        price: [],
+        price: [0, 1000],
         availability: null,
         tags: [],
     });

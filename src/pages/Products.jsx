@@ -71,7 +71,7 @@ export default function Products() {
                         <p className="no-products-subtitle">
                             Intente ajustar sus filtros o búsquedas.
                         </p>
-                        <button onClick={clearFilters} className="btn btn-secondary">
+                        <button onClick={clearFilters} className="clear_filter-btn">
                             Limpiar Filtros
                         </button>
                     </div>
