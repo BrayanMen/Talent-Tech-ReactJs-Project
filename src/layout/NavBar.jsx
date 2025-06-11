@@ -123,19 +123,16 @@ const NavBar = ({ openLoginModal }) => {
                         )}
                     </div>
                 ) : (
-                    <div>
-                        <button>
-                            <Link
-                                to="/login"
+                    <>
+                        <button                       
                                 className="header-btn login-btn"
                                 onClick={handleLoginClick}
-                                aria-label="Iniciar sesión"
-                            >
+                                aria-label="Iniciar sesión">                            
                                 <i>
                                     <CircleUser size={30} />
-                                </i>
-                            </Link>
+                                </i>                        
                         </button>
+                        
                         <button className="header-btn cart-btn" onClick={handleCartClick}
                          aria-label={`Carrito de compras con ${itemCount} items`}>
                             <i>
@@ -150,7 +147,7 @@ const NavBar = ({ openLoginModal }) => {
                                 </span>
                             )}
                         </button>
-                    </div>
+                    </>
                 )}
             </div>
 

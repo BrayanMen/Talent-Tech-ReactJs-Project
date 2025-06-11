@@ -57,7 +57,14 @@ h1 {
     right: 3.5rem;
     color: var(--light-gray);
 }
-.header_btns i:hover {
+.header_btns button{
+    background-color: transparent;
+    border: none;
+    color: var(--light-gray);
+    cursor: pointer;
+    transition: color 0.3s ease, filter 0.3s ease;
+}
+.header_btns button:hover {
     color: var(--gold-hover);
     filter: drop-shadow(0 0 15px var(--gold));
 }
