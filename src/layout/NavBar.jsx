@@ -124,31 +124,34 @@ const NavBar = ({ openLoginModal }) => {
                     </div>
                 ) : (
                     <>
-                        <button                       
-                                className="header-btn"
-                                onClick={handleLoginClick}
-                                aria-label="Iniciar sesión">                            
-                                <i>
-                                    <CircleUser size={30} />
-                                </i>                        
-                        </button>
-                        
-                        <button className="header-btn" onClick={handleCartClick}
-                         aria-label={`Carrito de compras con ${itemCount} items`}>
-                            {itemCount > 0 && (
-                                <span
-                                    className="cart-count"
-                                    aria-label={`${itemCount} items en el carrito`}
-                                >
-                                    {itemCount}
-                                </span>
-                            )}
+                        <button
+                            className="header-btn"
+                            onClick={handleLoginClick}
+                            aria-label="Iniciar sesión"
+                        >
                             <i>
-                                <ShoppingBasket size={32} />
+                                <CircleUser size={30} />
                             </i>
                         </button>
                     </>
                 )}
+                <button
+                    className="header-btn"
+                    onClick={handleCartClick}
+                    aria-label={`Carrito de compras con ${itemCount} items`}
+                >
+                    {itemCount > 0 && (
+                        <span
+                            className="cart-count"
+                            aria-label={`${itemCount} items en el carrito`}
+                        >
+                            {itemCount}
+                        </span>
+                    )}
+                    <i>
+                        <ShoppingBasket size={32} />
+                    </i>
+                </button>
             </div>
 
             <input
