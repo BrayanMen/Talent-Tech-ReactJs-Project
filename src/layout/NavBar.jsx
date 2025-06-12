@@ -125,7 +125,7 @@ const NavBar = ({ openLoginModal }) => {
                 ) : (
                     <>
                         <button                       
-                                className="header-btn login-btn"
+                                className="header-btn"
                                 onClick={handleLoginClick}
                                 aria-label="Iniciar sesión">                            
                                 <i>
@@ -133,11 +133,8 @@ const NavBar = ({ openLoginModal }) => {
                                 </i>                        
                         </button>
                         
-                        <button className="header-btn cart-btn" onClick={handleCartClick}
+                        <button className="header-btn" onClick={handleCartClick}
                          aria-label={`Carrito de compras con ${itemCount} items`}>
-                            <i>
-                                <ShoppingBasket size={32} />
-                            </i>
                             {itemCount > 0 && (
                                 <span
                                     className="cart-count"
@@ -146,6 +143,9 @@ const NavBar = ({ openLoginModal }) => {
                                     {itemCount}
                                 </span>
                             )}
+                            <i>
+                                <ShoppingBasket size={32} />
+                            </i>
                         </button>
                     </>
                 )}

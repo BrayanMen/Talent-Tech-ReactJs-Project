@@ -69,6 +69,17 @@ h1 {
     filter: drop-shadow(0 0 15px var(--gold));
 }
 
+.cart-count{
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: var(--red-accent);
+    color: white;
+    border-radius: 50%;
+    padding: 0.2rem 0.5rem;
+    font-size: 1rem;
+}
+
 .header_section.open {
     position: fixed;
 }
