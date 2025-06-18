@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import toast from './ui/Toast';
 import { Eye, EyeClosed, X } from 'lucide-react';
+import './LoginModal.css';
 
 export default function LoginModal({ onClose }) {
     const [isLogin, setIsLogin] = useState(true);
@@ -45,7 +46,7 @@ export default function LoginModal({ onClose }) {
         setData(prev => ({ ...prev, [name]: value }));
     };
 
-    const clearLogin = () => {
+    const switchLogin = () => {
         setIsLogin(!isLogin);
         setData({
             email: '',
@@ -74,7 +75,7 @@ export default function LoginModal({ onClose }) {
                             <input
                                 type="text"
                                 id="name"
-                                name='name'
+                                name="name"
                                 value={data.name}
                                 onChange={handleInputChange}
                                 placeholder="Ingresa tu nombre"
@@ -87,7 +88,7 @@ export default function LoginModal({ onClose }) {
                         <input
                             type="email"
                             id="email"
-                            name='email'
+                            name="email"
                             value={data.email}
                             onChange={handleInputChange}
                             placeholder="Ingresa tu correo..."
@@ -96,41 +97,64 @@ export default function LoginModal({ onClose }) {
                     </div>
                     <div className="log_form-conteiner">
                         <label htmlFor="email">Contraseña</label>
-                        <input
-                            type={viewPassword ? 'text' : 'password'}
-                            id="password"
-                            name='password'
-                            value={data.password}
-                            onChange={handleInputChange}
-                            placeholder="Ingresa tu contraseña..."
-                            required
-                        />
-                        <span onClick={() => setViewPassword(e => !e)}>
-                            {viewPassword ? <EyeClosed /> : <Eye />}
-                        </span>
+                        <div className="log_form-password">
+                            <input
+                                type={viewPassword ? 'text' : 'password'}
+                                id="password"
+                                name="password"
+                                value={data.password}
+                                onChange={handleInputChange}
+                                placeholder="Ingresa tu contraseña..."
+                                required
+                            />
+                            <span onClick={() => setViewPassword(e => !e)}>
+                                {viewPassword ? <EyeClosed /> : <Eye />}
+                            </span>
+                        </div>
                     </div>
                     {!isLogin && (
                         <div className="log_form-conteiner">
-                        <label htmlFor="email">Confirma tu Contraseña</label>
-                        <input
-                            type={viewPassword ? 'text' : 'password'}
-                            id="confirmPassword"
-                            name='confirmPassword'
-                            value={data.confirmPassword}
-                            onChange={handleInputChange}
-                            placeholder="Confirma tu contraseña..."
-                            required = {!isLogin}
-                        />
-                        <span onClick={() => setViewPassword(e => !e)}>
-                            {viewPassword ? <EyeClosed /> : <Eye />}
-                        </span>
-                    </div>
+                            <label htmlFor="email">Confirma tu Contraseña</label>
+                            <div className="log_form-password">
+                                <input
+                                    type={viewPassword ? 'text' : 'password'}
+                                    id="confirmPassword"
+                                    name="confirmPassword"
+                                    value={data.confirmPassword}
+                                    onChange={handleInputChange}
+                                    placeholder="Confirma tu contraseña..."
+                                    required={!isLogin}
+                                />
+                                <span onClick={() => setViewPassword(e => !e)}>
+                                    {viewPassword ? <EyeClosed /> : <Eye />}
+                                </span>
+                            </div>
+                        </div>
                     )}
-                    <button className={`btn btn-primary login-submit ${loading? "loading": ""}`}>
-                        {loading ? "Procesando...": (isLogin ? "Iniciar Sesion": "Crear cuenta")}
+                    <button
+                        className={`btn btn-secondary login-submit ${loading ? 'loading' : ''}`}
+                    >
+                        {!loading ? 'Procesando...' : isLogin ? 'Iniciar Sesion' : 'Crear cuenta'}
                     </button>
                 </form>
 
+                <div className="log_switch">
+                    {isLogin ? (
+                        <p>
+                            ¿No tienes una cuenta?{' '}
+                            <button onClick={switchLogin} className="log_switch-btn">
+                                Registro
+                            </button>
+                        </p>
+                    ) : (
+                        <p>
+                            ¿Ya tienes una cuenta?{' '}
+                            <button onClick={switchLogin} className="log_switch-btn">
+                                Iniciar Sesion
+                            </button>
+                        </p>
+                    )}
+                </div>
             </div>
         </div>
     );
