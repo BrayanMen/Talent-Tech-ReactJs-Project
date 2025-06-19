@@ -15,7 +15,7 @@ export default function LoginModal({ onClose }) {
     const [viewPassword, setViewPassword] = useState(false);
     const { login, register, loading } = useAuth();
 
-    const handleSubmit = async e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!loading) return;
         if (isLogin) {
