@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext.jsx';
 import { CircleUser, ShoppingBasket } from 'lucide-react';
+import './Navbar.css'; 
 
 const NavBar = ({ openLoginModal }) => {
     const { user, isAuth, logout } = useAuth();

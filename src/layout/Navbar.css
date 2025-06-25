@@ -1,31 +1,83 @@
-.header_btns {
-}
-
-.header-btn {
-}
 .user-btn {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
-.user-menu {}
-.user-info {}
-.avatar {}
+.user-menu {
+    position: absolute;
+    top: 100%;
+    color:white;
+    right: 0;
+    background-color:  var(--dark-bg);;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
 .user-details {
+    display: flex;
+    flex-direction: column;
 }
 
 .dropdown-divisor {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 0.5rem 0;
 }
 
 .dropdown-item {
+    padding: 0.5rem 0;
+    cursor: pointer;
+    color: #333;
 }
 .logout-btn {
+    padding: 0.5rem 1rem;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 .header-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: inherit;
 }
 .login-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
 }
 .cart-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
 }
 
 .cart-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.75rem;
 }

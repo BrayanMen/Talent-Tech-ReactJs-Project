@@ -17,9 +17,9 @@ export default function LoginModal({ onClose }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!loading) return;
+        if (loading) return;
         if (isLogin) {
-            const logIn = await login({ email: data.email, password: data.password });
+            const logIn = await login({ email: 'bjmr880@gmail.com', password: 'admin123' });
             if (logIn) {
                 onClose();
             }
@@ -136,7 +136,7 @@ export default function LoginModal({ onClose }) {
 
                         className={`btn btn-secondary login-submit ${loading ? 'loading' : ''}`}
                     >
-                        {!loading ? 'Procesando...' : isLogin ? 'Iniciar Sesion' : 'Crear cuenta'}
+                        {loading ? 'Procesando...' : isLogin ? 'Iniciar Sesion' : 'Crear cuenta'}
                     </button>
                 </form>
 

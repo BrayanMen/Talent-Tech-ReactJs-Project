@@ -12,7 +12,7 @@ const API_URL = 'https://6825eaad397e48c913143248.mockapi.io/users';
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAuth, setIsAuth] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const storageUser = JSON.parse(localStorage.getItem('user'));
@@ -22,6 +22,13 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const sessionActive = async userID => {
+        setLoading(true);
+        if (!userID) {
+            logout();
+            toast.show('No hay usuario activo', 'warning');
+            setLoading(false);
+            return;
+        }
         try {
             const res = await fetch(`${API_URL}/${userID}`);
             if (!res.ok) throw new Error('Sesion invalida');
@@ -39,6 +46,11 @@ export const AuthProvider = ({ children }) => {
     };
 
     const login = async ({ email, password }) => {
+        setLoading(true);
+        if (!email || !password) {
+            toast.show('Email y contraseña son requeridos', 'error');
+            throw new Error('Email y contraseña son requeridos');
+        }
         try {
             const res = await fetch(`${API_URL}?email=${email}`);
             if (!res.ok) throw new Error('Error al buscar el usuario');
@@ -66,6 +78,11 @@ export const AuthProvider = ({ children }) => {
     };
 
     const register = async ({ name, email, password, avatar }) => {
+        setLoading(true);
+        if (!name || !email || !password) {
+            toast.show('Nombre, email y contraseña son requeridos', 'error');
+            throw new Error('Nombre, email y contraseña son requeridos');
+        }
         try {
             const res = await fetch(`${API_URL}?email=${email}`);
             const userExist = await res.json();
@@ -102,11 +119,16 @@ export const AuthProvider = ({ children }) => {
     };
 
     const getUpdatableUserData = (user, updates) => {
+        if (!user || !updates) {
+            toast.show('Usuario o actualizaciones no válidas', 'error');
+            throw new Error('Usuario o actualizaciones no válidas');
+        }
         const { name, email, password, avatar, address } = { ...user, ...updates };
         return { name, email, password, avatar, address };
     };
 
     const updatedUserInfo = async updates => {
+        setLoading(true);
         if (!user) {
             toast.show('Debes estar conectado', 'error');
             throw new Error('No iniciaste Sesion')};
@@ -132,6 +154,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const handleWishlistProduct = async (id) => {
+        setLoading(true);
         if(!user){
             toast.show("Iniciar Sesion para agregar item a la lista.", "info")
             return false
