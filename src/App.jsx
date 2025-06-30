@@ -6,6 +6,7 @@ import MainLayout from './layout/MainLayout.jsx';
 import HomePage from './pages/HomePage.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Products from './pages/Products.jsx';
+import Cart from './components/Cart.jsx';
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                             <Route path="/products" element={<Products />} />
                             <Route path="*" element={<NotFound />} />
                         </Routes>
+                        <Cart/>
                     </MainLayout>
                 </CartProvider>
             </ProductProvider>
