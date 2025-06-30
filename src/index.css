@@ -337,7 +337,7 @@ h1 {
 
 #toast-container {
     position: fixed;
-    bottom: 20px;
+    top: 20px;
     right: 20px;
     display: flex;
     flex-direction: column-reverse;
@@ -348,8 +348,7 @@ h1 {
 .toast {
     padding: 12px 20px;
     border-radius: 4px;
-    color: white;
-    font-size: 14px;
+    font-size: 20px;
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -365,18 +364,24 @@ h1 {
 
 .toast-success {
     background-color: #00fd37;
+    color: #0a0e13; 
 }
 
 .toast-error {
     background-color: #ee210a;
+    color: white;
 }
 
 .toast-info {
     background-color: #3498db;
+    color: var(--charcoal);
+
 }
 
 .toast-warning {
     background-color: #f3ef12;
+    color: var(--charcoal);
+
 }
 
 /* Media queries para dispositivos móviles */

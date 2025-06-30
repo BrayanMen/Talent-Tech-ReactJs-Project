@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext.jsx';
 import { CircleUser, ShoppingBasket } from 'lucide-react';
-import './Navbar.css'; 
+import './Navbar.css';
 
 const NavBar = ({ openLoginModal }) => {
     const { user, isAuth, logout } = useAuth();
@@ -86,36 +86,38 @@ const NavBar = ({ openLoginModal }) => {
                                         className="avatar"
                                     />
                                     <div className="user-details">
-                                        <h3 className="">{user.name}</h3>
-                                        <h3 className="">{user.email}</h3>
+                                        <p className="">{user.name}</p>
+                                        <p className="">{user.email}</p>
                                     </div>
                                 </div>
                                 <div className="dropdown-divisor"></div>
-                                <Link
-                                    to="/profile"
-                                    className="dropdown-item"
-                                    onClick={() => setIsOpenUserMenu(false)}
-                                    role="menuitem"
-                                >
-                                    👤 Perfil
-                                </Link>
-                                <button
-                                    onClick={() => {
-                                        setIsOpenUserMenu(false);
-                                        handleWishlistClick();
-                                    }}
-                                    className="dropdown-item"
-                                    role="menuitem"
-                                >
-                                    ❤️ Favoritos
-                                </button>
+                                <div className="dropdown-items">
+                                    <Link
+                                        to="/profile"
+                                        className="dropdown-item"
+                                        onClick={() => setIsOpenUserMenu(false)}
+                                        role="menuitem"
+                                    >
+                                        👤 Perfil
+                                    </Link>
+                                    <button
+                                        onClick={() => {
+                                            setIsOpenUserMenu(false);
+                                            handleWishlistClick();
+                                        }}
+                                        className="dropdown-item"
+                                        role="menuitem"
+                                    >
+                                        ❤️ Favoritos
+                                    </button>
+                                </div>
                                 <div className="dropdown-divisor"></div>
                                 <button
                                     onClick={() => {
                                         setIsOpenUserMenu(false);
                                         logoutUser();
                                     }}
-                                    className="dropdown-item logout-btn"
+                                    className="dropdown-item"
                                     role="menuitem"
                                 >
                                     🚪 Cerrar Sesion
@@ -182,18 +184,18 @@ const NavBar = ({ openLoginModal }) => {
                                     >
                                         <p>{item.name}</p>
                                     </Link>
-                                    {isAuth && (
-                                        <Link to="/wishlist" className="header_nav-link">
-                                            Favoritos
-                                        </Link>
-                                    )}
-                                    {user?.role === 'admin' && (
-                                        <Link to="/admin" className="header_nav-link">
-                                            Admin
-                                        </Link>
-                                    )}
                                 </li>
                             ))}
+                            {isAuth && (
+                                <Link to="/wishlist" className="header_nav-li header_nav-link">
+                                    Favoritos
+                                </Link>
+                            )}
+                            {user?.role === 'admin' && (
+                                <Link to="/admin" className=" header_nav-li header_nav-link">
+                                    Admin
+                                </Link>
+                            )}
                         </ul>
                         <div className="hover_image-container">
                             {hoveredItem !== null ? (
