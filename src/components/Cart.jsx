@@ -55,61 +55,100 @@ export default function Cart() {
                         </button>
                     </div>
                 ) : (
-                    <div>
-                        <div className="cart_items" role="list" aria-label="Cart items">
-                            {cart.map(item => (
-                                <div key={item.id} className="cart_item">
-                                    <img
-                                        src={item.images[0]}
-                                        alt={`${item.name} Product image`}
-                                        className="cart_item-img"
-                                    />
-                                    <div className="cart_item-info">
-                                        <div className='cart_item-detail'>
-                                        <h3 className="cart_item-title">{item.name}</h3>
-                                        <p className="cart_item-price">${item.price.toFixed(2)}</p>
+                    <>
+                        <div className="cart_content">
+                            <div className="cart_items" role="list" aria-label="Cart items">
+                                {cart.map(item => (
+                                    <div key={item.id} className="cart_item">
+                                        <img
+                                            src={item.images[0]}
+                                            alt={`${item.name} Product image`}
+                                            className="cart_item-img"
+                                        />
+                                        <div className="cart_item-info">
+                                            <div className="cart_item-detail">
+                                                <h3 className="cart_item-title">{item.name}</h3>
+                                                <p className="cart_item-price">
+                                                    ${item.price.toFixed(2)}
+                                                </p>
+                                            </div>
+                                            <div className="cart_item-quantity">
+                                                <button
+                                                    className="btn-quantity"
+                                                    onClick={() =>
+                                                        quantityUpdates(
+                                                            item.id,
+                                                            (quantityUpdates[item.id] ||
+                                                                item.quantity) - 1
+                                                        )
+                                                    }
+                                                >
+                                                    -
+                                                </button>
+                                                <span className="cart_item-quantity-value">
+                                                    {quantityUpdates[item.id] || item.quantity}
+                                                </span>
+                                                <button
+                                                    className="btn-quantity"
+                                                    onClick={() =>
+                                                        quantityUpdates(
+                                                            item.id,
+                                                            (quantityUpdates[item.id] ||
+                                                                item.quantity) + 1
+                                                        )
+                                                    }
+                                                >
+                                                    +
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div className="cart_item-quantity">
-                                            <button
-                                                className="btn btn-secondary"
-                                                onClick={() =>
-                                                    quantityUpdates(
-                                                        item.id,
-                                                        (quantityUpdates[item.id] ||
-                                                            item.quantity) - 1
-                                                    )
-                                                }
-                                            >
-                                                -
-                                            </button>
-                                            <span className="cart_item-quantity-value">
-                                                {quantityUpdates[item.id] || item.quantity}
-                                            </span>
-                                            <button
-                                                className="btn btn-secondary"
-                                                onClick={() =>
-                                                    quantityUpdates(
-                                                        item.id,
-                                                        (quantityUpdates[item.id] ||
-                                                            item.quantity) + 1
-                                                    )
-                                                }
-                                            >
-                                                +
-                                            </button>
-                                        </div>
+                                        <button
+                                            onClick={() => removeItemCart(item.id)}
+                                            className="cart-item-remove"
+                                            aria-label={`Remove ${item.name} from cart`}
+                                        >
+                                            <Trash size={30} />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="cart-footer">
+                            <div className="cart_totals">
+                                <div className="cart_subtotals">
+                                    <span>Sub-Total: </span>
+                                    <span className="cart_subtotal">$ {totalCart.toFixed(2)} </span>
+                                </div>
+                                <div className="cart_items-count">
+                                    <span>Cantidad de productos: </span>
+                                    <span className="cart_item-count">
+                                        {itemCount} {itemCount === 1 ? 'producto' : 'productos'}
+                                    </span>
+                                </div>
+                                <div className="cart_actions">
+                                    <div className="cart_checkout">
+                                        {isAuth
+                                            ? 'Debes iniciar sesión antes de realizar el pago.'
+                                            : 'Continuar con pago.'}
                                     </div>
                                     <button
-                                        onClick={() => removeItemCart(item.id)}
-                                        className="cart-item-remove"
-                                        aria-label={`Remove ${item.name} from cart`}
+                                        className="btn-clear"
+                                        onClick={clearCart}
+                                        aria-label="Clear cart"
                                     >
-                                        <Trash size={30} />
+                                        Vaciar
+                                    </button>
+                                    <button
+                                        className="btn-checkout"
+                                        onClick={handleCheckout}
+                                        aria-label="Proceed to checkout"
+                                    >
+                                        Pagar
                                     </button>
                                 </div>
-                            ))}
+                            </div>
                         </div>
-                    </div>
+                    </>
                 )}
             </div>
         </div>
