@@ -17,7 +17,7 @@ export default function Cart() {
         itemCount,
         toggleCart,
     } = useCart();
-    const { isAuth } = useAuth;
+    const { isAuth } = useAuth();
     const navigate = useNavigate();
 
     const handleCheckout = () => {
@@ -25,8 +25,8 @@ export default function Cart() {
             toggleCart();
             return;
         }
-        toggleCart();
         navigate('/checkout');
+        toggleCart();
     };
 
     if (!isOpenCart) return null;
