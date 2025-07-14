@@ -15,14 +15,12 @@ export default function LoginModal({ onClose }) {
     const [viewPassword, setViewPassword] = useState(false);
     const { login, register, loading } = useAuth();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async e => {
         e.preventDefault();
         if (loading) return;
         if (isLogin) {
-            const logIn = await login({ email: 'bjmr880@gmail.com', password: 'admin123' });
-            if (logIn) {
-                onClose();
-            }
+            const logIn = await login({ email: data.email, password: data.password });
+            if (logIn) onClose();
         } else {
             if (data.password !== data.confirmPassword) {
                 toast.show('Contraseña incorrecta', 'warning');
@@ -32,7 +30,11 @@ export default function LoginModal({ onClose }) {
                 toast.show('La contraseña debe tener al menos 6 caracteres', 'warning');
                 return;
             }
-            const registered = await register(data.name, data.email, data.password);
+            const registered = await register({
+                name: data.name,
+                email: data.email,
+                password: data.password,
+            });
             if (registered) {
                 setIsLogin(true);
                 toast.show('Usuario registrado', 'success');
@@ -133,7 +135,6 @@ export default function LoginModal({ onClose }) {
                     <button
                         type="submit"
                         disabled={loading}
-
                         className={`btn btn-secondary login-submit ${loading ? 'loading' : ''}`}
                     >
                         {loading ? 'Procesando...' : isLogin ? 'Iniciar Sesion' : 'Crear cuenta'}
