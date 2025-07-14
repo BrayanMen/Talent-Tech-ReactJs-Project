@@ -9,6 +9,7 @@ import Products from './pages/Products.jsx';
 import Cart from './components/Cart.jsx';
 import CheckoutPage from './pages/CheckoutPage.jsx';
 import ProductsDetail from './pages/ProductsDetail.jsx';
+import Dashboard from './pages/Admin/Dashboard.jsx';
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                             <Route path="/products" element={<Products />} />
                             <Route path="/products/:id" element={<ProductsDetail />} />
                             <Route path="/checkout" element={<CheckoutPage />} />
+                            <Route path="/admin" element={<Dashboard/>} />
                             <Route path="*" element={<NotFound />} />
                         </Routes>
                         <Cart />
