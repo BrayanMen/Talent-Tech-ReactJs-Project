@@ -225,6 +225,7 @@ h1 {
     letter-spacing: 2px;
     background-color: transparent;
     text-shadow: 0 0 10px var(--gold);
+    text-decoration: none;
 }
 .logo_header.open {
     transform: translateY(0);

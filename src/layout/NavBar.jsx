@@ -61,8 +61,10 @@ const NavBar = ({ openLoginModal }) => {
     return (
         <header className="header_section">
             <div className="logo_container">
-                <h1 className={`logo_text logo_header ${isOpenMenu ? '' : 'open'}`}>
+                <h1 className={` logo_header ${isOpenMenu ? '' : 'open'}`}>
+                    <Link to="/" className='logo_text' >
                     Amón <span>Luxary</span>
+                    </Link>
                 </h1>
             </div>
             <div className="header_btns">
