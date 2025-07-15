@@ -87,7 +87,7 @@ export default function LoginModal({ onClose }) {
                                 aria-label="Mostrar credenciales de prueba"
                                 title="Credenciales de prueba"
                             >
-                                <Info size={20} />
+                                <Info size={30} />
                             </button>
                         )}                        
                     </div>
@@ -103,7 +103,7 @@ export default function LoginModal({ onClose }) {
                             </div>
                             <button 
                                 type="button" 
-                                className="btn btn-primary log_test-fill"
+                                className=" log_test-fill"
                                 onClick={handleCredentials}
                             >
                                 Cargar Credenciales
