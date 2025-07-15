@@ -6,6 +6,9 @@ import { useAuth } from '../../context/AuthContext';
 import { useProduct } from '../../context/ProductContext';
 import './Dashboard.css';
 import ProductTable from '../../components/AdminComponents/ProductTable';
+import SearchBar from '../../components/AdminComponents/SearchBar';
+import EmptyState from '../../components/AdminComponents/EmptyState';
+import ProductModal from '../../components/AdminComponents/ProductModal';
 
 const Dashboard = () => {
   const { user, isAuth } = useAuth();

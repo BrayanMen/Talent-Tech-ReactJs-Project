@@ -1,0 +1,41 @@
+/* EmptyState.css */
+.empty-state {
+  padding: 48px 24px;
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.empty-title {
+  font-size: 20px;
+  font-family: 'Cinzel', serif;
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+.empty-description {
+  color: #999;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.empty-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: transparent;
+  color: #d4af37;
+  border: 1px solid #d4af37;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.empty-action-btn:hover {
+  background-color: #d4af37;
+  color: #000;
+  transform: translateY(-1px);
+}

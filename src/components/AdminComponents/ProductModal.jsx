@@ -1,5 +1,5 @@
 import { Trash2 } from 'lucide-react';
-import './00007504.css';
+import './ProductModal.css';
 
 const ProductModal = ({ 
   isOpen, 
