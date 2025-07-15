@@ -39,7 +39,7 @@ const ProductModal = ({
                 value={formData.name}
                 onChange={onInputChange}
                 className="form-input"
-                placeholder="Enter product name"
+                placeholder="Ingresa el nombre del producto..."
                 required
               />
             </div>
@@ -74,7 +74,7 @@ const ProductModal = ({
               onChange={onInputChange}
               rows={4}
               className="form-textarea"
-              placeholder="Enter product description"
+              placeholder="Ingresa una descripcion del producto..."
               required
             />
           </div>
@@ -136,7 +136,7 @@ const ProductModal = ({
                     value={image}
                     onChange={(e) => onImageChange(e.target.value, index)}
                     className="form-input"
-                    placeholder="Image URL"
+                    placeholder="Ingresa URL de imagen/es..."
                   />
                   {formData.images.length > 1 && (
                     <button 
@@ -167,7 +167,7 @@ const ProductModal = ({
                 value={formData.tags}
                 onChange={onInputChange}
                 className="form-input"
-                placeholder="jacket, waterproof, black (comma separated)"
+                placeholder="jacket, waterproof, black (Separar por comas)"
               />
             </div>
             
@@ -182,7 +182,7 @@ const ProductModal = ({
                 value={formData.materials}
                 onChange={onInputChange}
                 className="form-input"
-                placeholder="cotton, polyester (comma separated)"
+                placeholder="cotton, polyester (Separar por comas)"
               />
             </div>
           </div>

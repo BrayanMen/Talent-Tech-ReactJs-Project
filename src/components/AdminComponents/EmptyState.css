@@ -1,41 +1,40 @@
-/* EmptyState.css */
 .empty-state {
-  padding: 48px 24px;
-  background-color: #2a2a2a;
-  border-radius: 8px;
+  padding: 3rem;
+  background-color: var(--dark-bg);
+  border-radius: 0.5rem;
   text-align: center;
 }
 
 .empty-title {
-  font-size: 20px;
+  font-size: 1.5rem;
   font-family: 'Cinzel', serif;
-  margin-bottom: 8px;
-  color: #ffffff;
+  margin-bottom: 0.5rem;
+  color: #ffffffdc;
 }
 
 .empty-description {
-  color: #999;
-  margin-bottom: 16px;
-  font-size: 14px;
+  color: var(--light-gray);
+  margin-bottom: 1rem;
+  font-size: 1rem;
 }
 
 .empty-action-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
   background-color: transparent;
-  color: #d4af37;
-  border: 1px solid #d4af37;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
+  color: var(--gold);
+  border: 1px solid var(--gold-hover);
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .empty-action-btn:hover {
-  background-color: #d4af37;
-  color: #000;
-  transform: translateY(-1px);
+  background-color: var(--gold);
+  color: var(--dark-charcoal);
+  transform: translateY(-3px);
 }

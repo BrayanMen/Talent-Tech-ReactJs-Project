@@ -1,94 +1,95 @@
 /* AdminDashboard.css */
 .admin-dashboard {
-  padding-top: 96px;
-  padding-bottom: 48px;
-  min-height: 100vh;
-  background-color: #0a0a0a;
+    padding-bottom: 48px;
+    min-height: 100vh;
+    background-color: var(--dark-bg);
 }
 
 .dashboard-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
 }
 
 .dashboard-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 32px;
-  gap: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 32px;
+    gap: 16px;
 }
 
 @media (min-width: 640px) {
-  .dashboard-header {
-    flex-direction: row;
-    align-items: center;
-    gap: 0;
-  }
+    .dashboard-header {
+        flex-direction: row;
+        align-items: center;
+        gap: 0;
+    }
 }
 
 .header-content {
-  flex: 1;
+    flex: 1;
 }
 
 .dashboard-title {
-  font-size: 36px;
-  font-family: 'Cinzel', serif;
-  margin-bottom: 8px;
-  color: #ffffff;
+    font-size: 36px;
+    font-family: 'Cinzel', serif;
+    margin-bottom: 8px;
+    color: #ffffffc2;
 }
 
 @media (min-width: 768px) {
-  .dashboard-title {
-    font-size: 48px;
-  }
+    .dashboard-title {
+        font-size: 48px;
+    }
 }
 
 .dashboard-subtitle {
-  color: #999;
-  font-size: 16px;
-  margin: 0;
+    color: var(--gray-text);
+    font-size: 16px;
+    margin: 0;
 }
 
 .add-product-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
-  background-color: #d4af37;
-  color: #000;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    color: var(--light-gray);
+    border: 1px solid var(--gray-text);
+    background-color: transparent;
 }
 
 .add-product-btn:hover {
-  background-color: #f4d03f;
-  transform: translateY(-1px);
+    background-color: var(--gold);
+    color: var(--dark-bg);
+    border: none;
+    transform: translateY(-3px);
 }
 
 .add-product-btn:active {
-  transform: translateY(0);
+    transform: translateY(0);
 }
 
-/* Responsive adjustments */
 @media (max-width: 640px) {
-  .dashboard-container {
-    padding: 0 12px;
-  }
-  
-  .dashboard-title {
-    font-size: 28px;
-  }
-  
-  .add-product-btn {
-    width: 100%;
-    justify-content: center;
-  }
+    .dashboard-container {
+        padding: 0 12px;
+    }
+
+    .dashboard-title {
+        font-size: 28px;
+    }
+
+    .add-product-btn {
+        width: 100%;
+        justify-content: center;
+    }
 }

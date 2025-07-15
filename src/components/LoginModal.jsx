@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import toast from './ui/Toast';
-import { Eye, EyeClosed, X } from 'lucide-react';
+import { Eye, EyeClosed, Info, X } from 'lucide-react';
 import './LoginModal.css';
 
 export default function LoginModal({ onClose }) {
@@ -13,7 +13,13 @@ export default function LoginModal({ onClose }) {
         confirmPassword: '',
     });
     const [viewPassword, setViewPassword] = useState(false);
+    const [showDataCredentials, setShowDataCredentials] = useState(false);
     const { login, register, loading } = useAuth();
+
+    const credentials = {
+        email: 'admin@admin.com',
+        password: 'admin123',
+    };
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -56,11 +62,55 @@ export default function LoginModal({ onClose }) {
             confirmPassword: '',
         });
     };
+
+    const handleCredentials = () => {
+        setData(prev => ({
+            ...prev,
+            email: credentials.email,
+            password: credentials.password,
+        }));
+        setShowDataCredentials(false)
+        toast.show('Acceso Rapido para Test', 'success')
+    };
+
     return (
         <div className="log_mask" onClick={onClose}>
             <div className="log_modal" onClick={e => e.stopPropagation()}>
                 <div className="log_header">
                     <h2>{isLogin ? 'Iniciar Sesion' : 'Crear una cuenta'}</h2>
+                    <div className="log_header-actions">
+                        {isLogin && (
+                            <button
+                                type="button"
+                                className="log_test-btn"
+                                onClick={() => setShowDataCredentials(!showDataCredentials)}
+                                aria-label="Mostrar credenciales de prueba"
+                                title="Credenciales de prueba"
+                            >
+                                <Info size={20} />
+                            </button>
+                        )}                        
+                    </div>
+            
+
+                {showDataCredentials && (
+                    <div className="log_test-credentials">
+                        <div className="log_test-content">
+                            <h3>Credenciales de Prueba</h3>
+                            <div className="log_test-info">
+                                <p><strong>Email:</strong> {credentials.email}</p>
+                                <p><strong>Contraseña:</strong> {credentials.password}</p>
+                            </div>
+                            <button 
+                                type="button" 
+                                className="btn btn-primary log_test-fill"
+                                onClick={handleCredentials}
+                            >
+                                Cargar Credenciales
+                            </button>
+                        </div>
+                    </div>
+                )}
                     <button
                         className="log_header-close"
                         aria-label="Cerrar el modal de Logueo"
