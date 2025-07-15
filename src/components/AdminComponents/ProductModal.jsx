@@ -199,7 +199,7 @@ const ProductModal = ({
               type="submit"
               className="btn btn-primary"
             >
-              {editingProduct ? 'Update Product' : 'Add Product'}
+              {editingProduct ? 'Modificar Producto' : 'Agregar Producto'}
             </button>
           </div>
         </form>
