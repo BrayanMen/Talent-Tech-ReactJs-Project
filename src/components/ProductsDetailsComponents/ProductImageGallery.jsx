@@ -1,4 +1,5 @@
 import { ChevronLeft, ChevronRight, Loader } from 'lucide-react';
+import './ProductImageGallery.css';
 
 const ProductImageGallery = ({ 
   product, 

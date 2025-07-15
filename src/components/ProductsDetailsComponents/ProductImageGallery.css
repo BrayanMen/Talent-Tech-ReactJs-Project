@@ -1,0 +1,111 @@
+.product-image-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.product-image-gallery__main {
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: var(--dark-bg);
+  aspect-ratio: 1;
+}
+
+.product-image-gallery__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #374151;
+}
+
+.product-image-gallery__loading-icon {
+  color: var(--gold);
+  animation: spin 1s linear infinite;
+}
+
+.product-image-gallery__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+}
+
+.product-image-gallery__image--hidden {
+  opacity: 0;
+}
+
+.product-image-gallery__image--visible {
+  opacity: 1;
+}
+
+.product-image-gallery__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.5rem;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.product-image-gallery__nav:hover {
+  background-color: rgba(212, 175, 55, 0.7);
+  color: black;
+}
+
+.product-image-gallery__nav--prev {
+  left: 1rem;
+}
+
+.product-image-gallery__nav--next {
+  right: 1rem;
+}
+
+.product-image-gallery__thumbnails {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.product-image-gallery__thumbnails::-webkit-scrollbar {
+  display: none;
+}
+
+.product-image-gallery__thumbnail {
+  position: relative;
+  min-width: 80px;
+  height: 80px;
+  border: 2px solid transparent;
+  border-radius: 0.375rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.product-image-gallery__thumbnail:hover {
+  border-color: var(--light-gray);
+}
+
+.product-image-gallery__thumbnail--active {
+  border-color: var(--gold);
+}
+
+.product-image-gallery__thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

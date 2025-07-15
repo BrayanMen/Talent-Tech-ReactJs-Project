@@ -6,10 +6,10 @@ import { useCart } from '../context/CartContext';
 import toast from '../components/ui/Toast';
 import Spinner from '../components/ui/Spinner';
 import './ProductsDetail.css';
-import ProductBreadcrumb from '../components/ProductsDetailsComponents/ProductBreadcrumb';
 import ProductImageGallery from '../components/ProductsDetailsComponents/ProductImageGallery';
 import ProductInfo from '../components/ProductsDetailsComponents/ProductInfo';
 import RelatedProducts from '../components/RelatedProducts';
+import ProductArrowBack from '../components/ProductsDetailsComponents/ProductArrowBack';
 
 const ProductsDetail = () => {
     const { id } = useParams();
@@ -98,7 +98,7 @@ const ProductsDetail = () => {
     return (
         <div className="product-detail">
             <div className="product-detail__container">
-                <ProductBreadcrumb onBackClick={() => navigate('/products')} />
+                <ProductArrowBack onBackClick={() => navigate('/products')} />
 
                 <div className="product-detail__content">
                     <ProductImageGallery

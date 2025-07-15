@@ -1,4 +1,5 @@
 import { Heart, ShoppingBag, Tag } from 'lucide-react';
+import  './ProductInfo.css';
 
 const ProductInfo = ({ 
   product, 
@@ -12,8 +13,7 @@ const ProductInfo = ({
 }) => {
   return (
     <div className="product-info">
-      <h1 className="product-info__title">{product.name}</h1>
-    
+      <h1 className="product-info__title">{product.name}</h1>    
       <div className="product-info__price-section">
         <span className="product-info__price">
           ${product.price.toFixed(2)}
@@ -71,7 +71,7 @@ const ProductInfo = ({
             -
           </button>
           <input 
-            type="number" 
+            type="text" 
             value={quantity} 
             onChange={(e) => onQuantityChange(Math.max(1, parseInt(e.target.value) || 1) - quantity)}
             className="product-info__quantity-input"
@@ -95,7 +95,7 @@ const ProductInfo = ({
           }`}
           disabled={isOutOfStock}
         >
-          <ShoppingBag size={18} />
+          <ShoppingBag size={28} />
           {isOutOfStock ? 'Agotado' : 'Agregar al Carrito'}
         </button>
         
@@ -108,7 +108,7 @@ const ProductInfo = ({
           }`}
         >
           <Heart 
-            size={18} 
+            size={28} 
             className={isInWishlist ? 'product-info__wishlist-icon--filled' : ''} 
           />
           {isInWishlist ? 'En Favoritos' : 'Agregar a Favoritos'}
