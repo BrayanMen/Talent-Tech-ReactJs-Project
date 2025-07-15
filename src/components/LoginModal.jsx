@@ -185,7 +185,7 @@ export default function LoginModal({ onClose }) {
                     <button
                         type="submit"
                         disabled={loading}
-                        className={`btn btn-secondary login-submit ${loading ? 'loading' : ''}`}
+                        className={`btn btn-primary  ${loading ? 'loading' : ''}`}
                     >
                         {loading ? 'Procesando...' : isLogin ? 'Iniciar Sesion' : 'Crear cuenta'}
                     </button>
