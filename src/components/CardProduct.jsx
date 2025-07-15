@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext';
 import { Link } from 'react-router-dom';
 import './CardProduct.css';
 import { HeartPlus, LucideEye, Plus } from 'lucide-react';
+import toast from './ui/Toast';
 
 export default function CardProduct({ product }) {
     const { isAuth, user, handleWishlistProduct } = useAuth();
@@ -24,6 +25,8 @@ export default function CardProduct({ product }) {
         e.stopPropagation();
         if (isAuth) {
             handleWishlistProduct(product.id);
+        } else {
+            toast.show('Debes iniciar sesión para agregar a favoritos', 'error');
         }
     };
 
@@ -91,7 +94,9 @@ export default function CardProduct({ product }) {
                 <div className="product_card-info">
                     <h3 className="product_card-title">{product.name}</h3>
                     <p className="product_card-price">${product.price.toFixed(2)}</p>
-                    <p className="product_card-descrip">{product.description.substring(0, 70)}...</p>
+                    <p className="product_card-descrip">
+                        {product.description.substring(0, 70)}...
+                    </p>
                 </div>
             </Link>
         </div>
