@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useProduct } from '../context/ProductContext';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
-import  {useProductFilter}  from '../hooks/useProductFilter';
+import { useProductFilter } from '../hooks/useProductFilter';
 import './Products.css';
 import Spinner from '../components/ui/Spinner';
 import CardProduct from '../components/CardProduct';
@@ -13,6 +13,8 @@ export default function Products() {
     const { products, loading, moreItems, loadingMoreProducts } = useProduct();
     const [showFilters, setShowFilters] = useState(false);
     const [view, setView] = useState('grid');
+    const [currentPage, setCurrentPage] = useState(1);
+    const productsPerPage = 6;
 
     const {
         filter,
@@ -29,6 +31,15 @@ export default function Products() {
         handlePriceChange,
         clearFilters,
     } = useProductFilter(products);
+
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [filteredProducts]);
 
     const { lastElementRef } = useInfiniteScroll(loadingMoreProducts, moreItems, loading);
 
@@ -81,7 +92,7 @@ export default function Products() {
                             view === 'list' ? 'list-view' : ''
                         }`}
                     >
-                        {filteredProducts.map((product, i) => (
+                        {currentProducts.map((product, i) => (
                             <div
                                 key={product.id}
                                 className="products_item"
@@ -96,9 +107,23 @@ export default function Products() {
                         ))}
                     </div>
                 )}
+                <br />
+                        <div className="pagination">
+                            {[...Array(totalPages)].map((_, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => setCurrentPage(i + 1)}
+                                    className={`pagination-btn ${
+                                        currentPage === i + 1 ? 'active' : ''
+                                    }`}
+                                >
+                                    {i + 1}
+                                </button>
+                            ))}
+                        </div>
 
                 {loading && filteredProducts.length > 0 && <Spinner />}
-                
+
                 {!loading && !moreItems && filteredProducts.length > 0 && (
                     <div className="end_msg">Llegaste al final de nuestros productos</div>
                 )}

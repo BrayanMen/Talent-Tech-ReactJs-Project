@@ -170,3 +170,30 @@
         transform: translateY(0);
     }
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.pagination-btn {
+    color: white;
+    padding: 8px 12px;
+    margin: 4px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--charcoal);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-btn:hover {
+    background-color: var(--light-gray);
+    transform: translateY(-2px);
+}
+
+.pagination-btn.active {
+    background-color: var(--gold);
+}
