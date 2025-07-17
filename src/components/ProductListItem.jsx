@@ -27,19 +27,19 @@ export default function ProductListItem({ product, showFilters }) {
     };
   return (
     <div className={`products_card-list ${showFilters ? 'filter_panel' : ''}`}>
-            <div>
+            <div className={`product_card-image ${outStock ? 'out-stock' : ''}`}>
                 <Link to={`/product/${product.id}`}>
                     <img src={product.images[0]} alt={product.name} />
                 </Link>
             </div>
-            <div>
-                <div>
-                    <Link to={`/product/${product.id}`}>
+            <div className="product_card-info">
+                <div  className="product_card-info-container">
+                    <Link to={`/product/${product.id}`} className="product_card-link">
                         <h2>{product.name}</h2>
                     </Link>
                     <p>${product.price.toFixed(2)}</p>
                     <p className="product_description">{product.description}</p>
-                    <div>
+                    <div className="product_tags">
                         {product.tags &&
                             product.tags.map((tag, i) => (
                                 <span key={i} className="product-tag">
