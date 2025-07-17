@@ -26,15 +26,15 @@ export default function ProductListItem({ product, showFilters }) {
         }
     };
   return (
-    <div className={`products_card-list ${showFilters ? 'filter_panel' : ''}`}>
-            <div className={`product_card-image ${outStock ? 'out-stock' : ''}`}>
+    <div className={`products_cardlist-list ${showFilters ? 'filter_panel' : ''}`}>
+            <div className={`product_cardlist-image ${outStock ? 'out-stock' : ''}`}>
                 <Link to={`/product/${product.id}`}>
                     <img src={product.images[0]} alt={product.name} />
                 </Link>
             </div>
-            <div className="product_card-info">
-                <div  className="product_card-info-container">
-                    <Link to={`/product/${product.id}`} className="product_card-link">
+            <div className="product_cardlist-info">
+                <div  className="product_cardlist-info-container">
+                    <Link to={`/product/${product.id}`} className="product_cardlist-link">
                         <h2>{product.name}</h2>
                     </Link>
                     <p>${product.price.toFixed(2)}</p>
