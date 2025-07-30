@@ -28,6 +28,7 @@ export default function LoginModal({ onClose }) {
             const logIn = await login({ email: data.email, password: data.password });
             if (logIn) {
                 onClose();
+                
             }
         } else {
             if (data.password !== data.confirmPassword) {

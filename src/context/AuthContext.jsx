@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import toast from '../components/ui/Toast';
-import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -17,12 +16,11 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAuth, setIsAuth] = useState(false);
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
 
     useEffect(() => {
-        const token = JSON.parse(localStorage.getItem('token'));
+        const token = JSON.parse(localStorage.getItem('token'));        
         if (token) {            
-            sessionActive();
+            sessionActive();            
         }
     }, []);
 
@@ -82,8 +80,6 @@ export const AuthProvider = ({ children }) => {
 
             setUser(user.data);
             setIsAuth(true);
-            navigate('/products');
-
             toast.show('¡Bienvenido!', 'success');
         } catch (err) {
             toast.show('Error Iniciando Sesion.', 'error');
