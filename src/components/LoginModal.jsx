@@ -26,7 +26,9 @@ export default function LoginModal({ onClose }) {
         if (loading) return;
         if (isLogin) {
             const logIn = await login({ email: data.email, password: data.password });
-            if (logIn) onClose();
+            if (logIn) {
+                onClose();
+            }
         } else {
             if (data.password !== data.confirmPassword) {
                 toast.show('Contraseña incorrecta', 'warning');
@@ -69,8 +71,8 @@ export default function LoginModal({ onClose }) {
             email: credentials.email,
             password: credentials.password,
         }));
-        setShowDataCredentials(false)
-        toast.show('Acceso Rapido para Test', 'success')
+        setShowDataCredentials(false);
+        toast.show('Acceso Rapido para Test', 'success');
     };
 
     return (
@@ -89,28 +91,31 @@ export default function LoginModal({ onClose }) {
                             >
                                 <Info size={30} />
                             </button>
-                        )}                        
+                        )}
                     </div>
-            
 
-                {showDataCredentials && (
-                    <div className="log_test-credentials">
-                        <div className="log_test-content">
-                            <h3>Credenciales de Prueba</h3>
-                            <div className="log_test-info">
-                                <p><strong>Email:</strong> {credentials.email}</p>
-                                <p><strong>Contraseña:</strong> {credentials.password}</p>
+                    {showDataCredentials && (
+                        <div className="log_test-credentials">
+                            <div className="log_test-content">
+                                <h3>Credenciales de Prueba</h3>
+                                <div className="log_test-info">
+                                    <p>
+                                        <strong>Email:</strong> {credentials.email}
+                                    </p>
+                                    <p>
+                                        <strong>Contraseña:</strong> {credentials.password}
+                                    </p>
+                                </div>
+                                <button
+                                    type="button"
+                                    className=" log_test-fill"
+                                    onClick={handleCredentials}
+                                >
+                                    Cargar Credenciales
+                                </button>
                             </div>
-                            <button 
-                                type="button" 
-                                className=" log_test-fill"
-                                onClick={handleCredentials}
-                            >
-                                Cargar Credenciales
-                            </button>
                         </div>
-                    </div>
-                )}
+                    )}
                     <button
                         className="log_header-close"
                         aria-label="Cerrar el modal de Logueo"

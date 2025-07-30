@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import toast from '../components/ui/Toast';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -7,36 +8,50 @@ export const useAuth = () => {
     return useContext(AuthContext);
 };
 
-const API_URL = 'https://6825eaad397e48c913143248.mockapi.io/users';
+// const API_URL = 'https://6825eaad397e48c913143248.mockapi.io/users';
+const BASE_URL = 'https://talentotechnodejs.vercel.app';
+const BASE_URL_USERS = `${BASE_URL}/api/users`;
+const BASE_URL_AUTH = `${BASE_URL}/auth`;
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAuth, setIsAuth] = useState(false);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const storageUser = JSON.parse(localStorage.getItem('user'));
-        if (storageUser) {
-            sessionActive(storageUser.id);
+        const token = JSON.parse(localStorage.getItem('token'));
+        if (token) {            
+            sessionActive();
         }
     }, []);
 
-    const sessionActive = async userID => {
+    const sessionActive = async () => {
         setLoading(true);
-        if (!userID) {
+        const token = JSON.parse(localStorage.getItem('token'));
+
+        if (!token) {
             logout();
-            toast.show('No hay usuario activo', 'warning');
+            toast.show('No esta autorizado', 'warning');
             setLoading(false);
             return;
         }
         try {
-            const res = await fetch(`${API_URL}/${userID}`);
-            if (!res.ok) throw new Error('Sesion invalida');
+            const res = await fetch(`${BASE_URL_USERS}/profile`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             const userData = await res.json();
-            delete userData.password;
-            setUser(userData);
+
+            console.log('User Data:', userData.data);
+
+            if (!userData.success) throw new Error('Sesion invalida');
+
+            setUser(userData.data);
             setIsAuth(true);
-            localStorage.setItem('user', JSON.stringify(userData));
         } catch (err) {
             logout();
             toast.show('Sesion Expirada', 'warning');
@@ -52,23 +67,24 @@ export const AuthProvider = ({ children }) => {
             throw new Error('Email y contraseña son requeridos');
         }
         try {
-            const res = await fetch(`${API_URL}?email=${email}`);
-            if (!res.ok) throw new Error('Error al buscar el usuario');
+            const res = await fetch(`${BASE_URL_AUTH}/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
+            const user = await res.json();
+            console.log('aqui ---->',user.data);
 
-            const users = await res.json();
-            const userFound = users.find(u => u.password === password);
+            if (!user.success) throw new Error(user.message);
 
-            if (!userFound) {
-                toast.show('Credenciales Invalidas', 'error');
-                throw new Error('Credenciales incorrectas!');
-            }
+            localStorage.setItem('token', JSON.stringify(user.token));
+            localStorage.setItem('user', JSON.stringify(user.data));
 
-            delete userFound.password;
-            setUser(userFound);
+            setUser(user.data);
             setIsAuth(true);
-            localStorage.setItem('user', JSON.stringify(userFound));
+            navigate('/products');
+
             toast.show('¡Bienvenido!', 'success');
-            return userFound;
         } catch (err) {
             toast.show('Error Iniciando Sesion.', 'error');
             console.error('Error Iniciando Sesion: ', err.message);
@@ -79,37 +95,17 @@ export const AuthProvider = ({ children }) => {
 
     const register = async ({ name, email, password, avatar }) => {
         setLoading(true);
-        if (!name || !email || !password) {
-            toast.show('Nombre, email y contraseña son requeridos', 'error');
-            throw new Error('Nombre, email y contraseña son requeridos');
-        }
         try {
-            const res = await fetch(`${API_URL}?email=${email}`);
-            const userExist = await res.json();
-            if (userExist.length > 0) {
-                toast.show('Este correo ya esta registrado', 'error');
-                throw new Error('Correo registrado')};
-
-            const newUser = {
-                name,
-                email,
-                password,
-                role: 'custumer',
-                avatar: avatar || 'https://cdn-icons-png.flaticon.com/512/6596/6596121.png',
-                address: {},
-                wishlist: [],
-                createdAt: new Date().toISOString(),
-            };
-
-            const createRes = await fetch(API_URL, {
+            const res = await fetch(`${BASE_URL_AUTH}/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newUser),
+                body: JSON.stringify({ name, email, password, avatar }),
             });
+            const user = await res.json();
+            if (!user.success) throw new Error(user.message);
 
-            if (!createRes.ok) throw new Error('Error al crear el usuario');
             toast.show('Registro Exitoso!', 'success');
-            return await createRes.json();
+            return user.data;
         } catch (err) {
             toast.show('Error al registrar usuario.', 'error');
             console.error('Error al registrar usuario: ', err.message);
@@ -118,33 +114,33 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const getUpdatableUserData = (user, updates) => {
-        if (!user || !updates) {
-            toast.show('Usuario o actualizaciones no válidas', 'error');
-            throw new Error('Usuario o actualizaciones no válidas');
-        }
-        const { name, email, password, avatar, address } = { ...user, ...updates };
-        return { name, email, password, avatar, address };
-    };
+    // const getUpdatableUserData = (user, updates) => {
+    //     if (!user || !updates) {
+    //         toast.show('Usuario o actualizaciones no válidas', 'error');
+    //         throw new Error('Usuario o actualizaciones no válidas');
+    //     }
+    //     const { name, email, password, avatar, address } = { ...user, ...updates };
+    //     return { name, email, password, avatar, address };
+    // };
 
     const updatedUserInfo = async updates => {
         setLoading(true);
-        if (!user) {
-            toast.show('Debes estar conectado', 'error');
-            throw new Error('No iniciaste Sesion')};
+        const token = JSON.parse(localStorage.getItem('token'));
         try {
-            const res = await fetch(`${API_URL}/${user.id}`, {
+            const res = await fetch(`${BASE_URL_USERS}/profile/update`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(getUpdatableUserData(user, updates)),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(updates),
             });
-            if (!res.ok) throw new Error('Error de modificacion');
-
             const updatedUser = await res.json();
-            setUser(updatedUser);
-            localStorage.setItem('user', JSON.stringify(updatedUser));
+            if (!updatedUser.success) throw new Error(updatedUser.message);
+
+            setUser(updatedUser.data);
+            localStorage.setItem('user', JSON.stringify(updatedUser.data));
             toast.show('Perfil Actualizado con Exitoso!', 'success');
-            return updatedUser;
         } catch (err) {
             toast.show('Error al actualizar el usuario.', 'error');
             console.error('Error al actualizar el usuario: ', err.message);
@@ -153,31 +149,39 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const handleWishlistProduct = async (id) => {
+    const handleWishlistProduct = async id => {
         setLoading(true);
-        if(!user){
-            toast.show("Iniciar Sesion para agregar item a la lista.", "info")
-            return false
-        }
+        const token = JSON.parse(localStorage.getItem('token'));
+        try {
+            const action = user?.wishlist?.includes(id) ? 'remove' : 'add';
+            const res = await fetch(`${BASE_URL_USERS}/wishlist`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ productId: id, action }),
+            });
+            const data = await res.json();
+            if (!data.success) throw new Error(data.message);
 
-        const wishList = [...(user.wishlist || [])];
-        const indexProduct = wishList.indexOf(id);
-        if(indexProduct > -1){
-            wishList.splice(indexProduct,1)
-            toast.show("Eliminado de lista","info")
-        }else{
-            wishList.push(id);
-            toast.show("Agregado a la lista", "success")
+            setUser(prev => ({
+                ...prev,
+                wishlist: data.wishlist,
+            }));
+            toast.show('Producto añadido a la lista de deseos', 'success');
+        } catch (err) {
+            toast.show('Error al añadir el producto a la lista de deseos.', 'error');
+            console.error('Error al añadir el producto a la lista de deseos: ', err.message);
         }
-        return await updatedUserInfo({wishList})
-    }
- 
+    };
 
     const logout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
         setUser(null);
         setIsAuth(false);
-        localStorage.removeItem('user');
-        toast.show("Cerraste Sesion", "info")
+        toast.show('Cerraste Sesion', 'info');
     };
 
     const values = {
@@ -188,7 +192,7 @@ export const AuthProvider = ({ children }) => {
         register,
         logout,
         updatedUserInfo,
-        handleWishlistProduct
+        handleWishlistProduct,
     };
     return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
