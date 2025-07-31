@@ -27,7 +27,6 @@ export const AuthProvider = ({ children }) => {
     const sessionActive = async () => {
         setLoading(true);
         const token = JSON.parse(localStorage.getItem('token'));
-
         if (!token) {
             logout();
             toast.show('No esta autorizado', 'warning');

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import toast from './ui/Toast';
 import { Eye, EyeClosed, Info, X } from 'lucide-react';
@@ -20,15 +20,14 @@ export default function LoginModal({ onClose }) {
         email: 'admin@admin.com',
         password: 'admin123',
     };
-
+    
     const handleSubmit = async e => {
         e.preventDefault();
         if (loading) return;
         if (isLogin) {
             const logIn = await login({ email: data.email, password: data.password });
             if (logIn) {
-                onClose();
-                
+                onClose();                
             }
         } else {
             if (data.password !== data.confirmPassword) {
