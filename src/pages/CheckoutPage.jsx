@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { ArrowLeft } from 'lucide-react';
 import './CheckoutPage.css';
-import EmptyCart from '../components/EmptyCart';
-import OrderComplete from '../components/OrderComplete';
-import CheckoutForm from '../components/CheckoutForm';
-import CheckoutSteps from '../components/CheckoutSteps';
-import PaymentForm from '../components/PaymentForm';
-import OrderSummary from '../components/OrderSummary';
+import EmptyCart from '../components/PaymentComponets/EmptyCart';
+import OrderComplete from '../components/PaymentComponets/OrderComplete';
+import CheckoutForm from '../components/PaymentComponets/CheckoutForm';
+import CheckoutSteps from '../components/PaymentComponets/CheckoutSteps';
+import PaymentForm from '../components/PaymentComponets/PaymentForm';
+import OrderSummary from '../components/PaymentComponets/OrderSummary';
 import { useAuth } from '../context/AuthContext';
 import toast from '../components/ui/Toast';
 

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import CardProduct from './CardProduct';
+import CardProduct from './ProductsComponents/CardProduct';
 
 const RelatedProducts = ({ products, title }) => {
     if (products.length === 0) {
@@ -7,19 +7,19 @@ const RelatedProducts = ({ products, title }) => {
     }
 
     return (
-        <div className='featured_container'>
-                <div className='featured_header'>
-                    <h2 className='hero_title'>{title}</h2>
-                    <Link to='/products' className='btn btn-secondary'>Ver mas</Link>
-                </div>
-                <div className='products_grid'>
-                    {products.slice(0,5).map(p => {
-                        return (
-                            <CardProduct key={p.id} product={p}/>
-                        );
-                    })}
-                </div>
+        <div className="featured_container">
+            <div className="featured_header">
+                <h2 className="hero_title">{title}</h2>
+                <Link to="/products" className="btn btn-secondary">
+                    Ver mas
+                </Link>
             </div>
+            <div className="products_grid">
+                {products.slice(0, 5).map(p => {
+                    return <CardProduct key={p.id} product={p} />;
+                })}
+            </div>
+        </div>
     );
 };
 

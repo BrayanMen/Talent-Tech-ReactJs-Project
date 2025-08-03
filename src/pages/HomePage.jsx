@@ -3,7 +3,6 @@ import './HomePage.css';
 import { useProduct } from '../context/ProductContext';
 import { Link } from 'react-router-dom';
 import Spinner from '../components/ui/Spinner';
-import CardProduct from '../components/CardProduct';
 import RelatedProducts from '../components/RelatedProducts';
 
 export default function HomePage() {

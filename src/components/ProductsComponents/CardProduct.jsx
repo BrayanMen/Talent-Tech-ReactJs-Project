@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { useCart } from '../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
+import { useCart } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
 import './CardProduct.css';
 import { HeartPlus, LucideEye, Plus } from 'lucide-react';
-import toast from './ui/Toast';
+import toast from '../ui/Toast';
 
 export default function CardProduct({ product }) {
     const { isAuth, user, handleWishlistProduct } = useAuth();

@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { HeartPlus, Plus } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-import { useCart } from '../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
+import { useCart } from '../../context/CartContext';
 import './ProductListItem.css';
 
 export default function ProductListItem({ product, showFilters }) {
@@ -25,15 +25,15 @@ export default function ProductListItem({ product, showFilters }) {
             handleWishlistProduct(product.id);
         }
     };
-  return (
-    <div className={`products_cardlist-list ${showFilters ? 'filter_panel' : ''}`}>
+    return (
+        <div className={`products_cardlist-list ${showFilters ? 'filter_panel' : ''}`}>
             <div className={`product_cardlist-image ${outStock ? 'out-stock' : ''}`}>
                 <Link to={`/product/${product.id}`}>
                     <img src={product.images[0]} alt={product.name} />
                 </Link>
             </div>
             <div className="product_cardlist-info">
-                <div  className="product_cardlist-info-container">
+                <div className="product_cardlist-info-container">
                     <Link to={`/product/${product.id}`} className="product_cardlist-link">
                         <h2>{product.name}</h2>
                     </Link>
@@ -51,9 +51,7 @@ export default function ProductListItem({ product, showFilters }) {
                         <button
                             onClick={handleWishList}
                             className={`product_card-btn ${inWishList ? 'active' : ''}`}
-                            aria-label={
-                                inWishList ? 'Remover de favoritos' : 'Agregar a favoritos'
-                            }
+                            aria-label={inWishList ? 'Remover de favoritos' : 'Agregar a favoritos'}
                             disabled={!isAuth}
                         >
                             <HeartPlus size={30} />
@@ -70,5 +68,5 @@ export default function ProductListItem({ product, showFilters }) {
                 </div>
             </div>
         </div>
-  )
+    );
 }

@@ -1,8 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { FilterIcon, Grid, List } from 'lucide-react';
 import SearchItems from './SearchItems';
 import './ProductsHeader.css';
-
 
 export default function ProductsHeader({
     searchItems,
@@ -14,8 +13,8 @@ export default function ProductsHeader({
     setView,
     productCount,
 }) {
-  return (
-    <div className="products_header">
+    return (
+        <div className="products_header">
             <h1 className="products_header-title">Productos</h1>
             <div className="products_header-bar">
                 <SearchItems searchItems={searchItems} setSearchItems={setSearchItems} />
@@ -53,11 +52,9 @@ export default function ProductsHeader({
                             <List />
                         </button>
                     </div>
-                    <div className="products_header-view-count">
-                        {productCount} Productos
-                    </div>
+                    <div className="products_header-view-count">{productCount} Productos</div>
                 </div>
             </div>
         </div>
-  )
+    );
 }

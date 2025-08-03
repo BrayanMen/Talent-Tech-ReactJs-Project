@@ -4,17 +4,16 @@ import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import { useProductFilter } from '../hooks/useProductFilter';
 import './Products.css';
 import Spinner from '../components/ui/Spinner';
-import CardProduct from '../components/CardProduct';
-import ProductHeader from '../components/ProductsHeader';
-import ProductFilters from '../components/ProductFilters';
-import ProductListItem from '../components/ProductListItem';
+import CardProduct from '../components/ProductsComponents/CardProduct';
+import ProductHeader from '../components/ProductsComponents/ProductsHeader';
+import ProductFilters from '../components/ProductsComponents/ProductFilters.jsx';
+import ProductListItem from '../components/ProductsComponents/ProductListItem';
 
 export default function Products() {
-    const { products, loading, moreItems, loadingMoreProducts ,ITEMS_PER_PAGE} = useProduct();
+    const { products, loading, moreItems, loadingMoreProducts, ITEMS_PER_PAGE } = useProduct();
     const [showFilters, setShowFilters] = useState(false);
     const [view, setView] = useState('grid');
     const [currentPage, setCurrentPage] = useState(1);
-    
 
     const {
         filter,
@@ -108,19 +107,17 @@ export default function Products() {
                     </div>
                 )}
                 <br />
-                        <div className="pagination">
-                            {[...Array(totalPages)].map((_, i) => (
-                                <button
-                                    key={i}
-                                    onClick={() => setCurrentPage(i + 1)}
-                                    className={`pagination-btn ${
-                                        currentPage === i + 1 ? 'active' : ''
-                                    }`}
-                                >
-                                    {i + 1}
-                                </button>
-                            ))}
-                        </div>
+                <div className="pagination">
+                    {[...Array(totalPages)].map((_, i) => (
+                        <button
+                            key={i}
+                            onClick={() => setCurrentPage(i + 1)}
+                            className={`pagination-btn ${currentPage === i + 1 ? 'active' : ''}`}
+                        >
+                            {i + 1}
+                        </button>
+                    ))}
+                </div>
 
                 {loading && filteredProducts.length > 0 && <Spinner />}
 
