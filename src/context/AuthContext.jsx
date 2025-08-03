@@ -18,9 +18,9 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        const token = JSON.parse(localStorage.getItem('token'));        
-        if (token) {            
-            sessionActive();            
+        const token = JSON.parse(localStorage.getItem('token'));
+        if (token) {
+            sessionActive();
         }
     }, []);
 
@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
                 body: JSON.stringify({ email, password }),
             });
             const user = await res.json();
-            console.log('aqui ---->',user.data);
+            console.log('aqui ---->', user.data);
 
             if (!user.success) throw new Error(user.message);
 
@@ -148,7 +148,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
         const token = JSON.parse(localStorage.getItem('token'));
         try {
-            const action = user?.wishlist?.includes(id) ? 'remove' : 'add';
+            const action = Array.isArray(user?.wishlist) && user.wishlist.includes(id) ? 'remove' : 'add';
             const res = await fetch(`${BASE_URL_USERS}/wishlist`, {
                 method: 'PATCH',
                 headers: {
