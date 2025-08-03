@@ -70,3 +70,13 @@
     display: flex;
     gap: 0.75rem;
 }
+
+.products_cardlist-list.filter_panel{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #333;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    height: 18rem;
+}

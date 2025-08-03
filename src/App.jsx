@@ -10,6 +10,7 @@ import Cart from './components/Cart.jsx';
 import CheckoutPage from './pages/CheckoutPage.jsx';
 import Dashboard from './pages/Admin/Dashboard.jsx';
 import ProductsDetail from './pages/ProductsDetail.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                             <Route path="/product/:id" element={<ProductsDetail />} />
                             <Route path="/checkout" element={<CheckoutPage />} />
                             <Route path="/admin" element={<Dashboard/>} />
+                            <Route path="/profile" element={<ProfilePage/>} />
                             <Route path="*" element={<NotFound />} />
                         </Routes>
                         <Cart />

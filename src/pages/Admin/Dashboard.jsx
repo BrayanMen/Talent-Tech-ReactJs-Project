@@ -22,6 +22,7 @@ const Dashboard = () => {
   
   const [formData, setFormData] = useState({
     name: '',
+    category:'',
     description: '',
     price: 0,
     stock: 0,
@@ -75,6 +76,7 @@ const Dashboard = () => {
   const openAddModal = () => {
     setFormData({
       name: '',
+      category:[],
       description: '',
       price: 0,
       stock: 0,
@@ -90,6 +92,7 @@ const Dashboard = () => {
   const openEditModal = (product) => {
     setFormData({
       name: product.name,
+      category:product.category,
       description: product.description,
       price: product.price,
       stock: product.stock,
@@ -165,6 +168,7 @@ const Dashboard = () => {
     
     const productData = {
       name: formData.name,
+      category:formData.category ,
       description: formData.description,
       price: formData.price,
       stock: formData.stock,
@@ -243,6 +247,7 @@ const Dashboard = () => {
           onImageChange={handleImageChange}
           onAddImage={addImageField}
           onRemoveImage={removeImageField}
+          products={products}
         />
       </div>
     </>

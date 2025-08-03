@@ -1,0 +1,150 @@
+.form-header {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.profile-page {
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 0.5rem;
+}
+
+.profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    text-align: center;
+    color: var(--gold-hover);
+}
+
+.profile-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group-full {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #d1d5db;
+    margin-bottom: 0.25rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: var(--dark-charcoal);
+    border: 1px solid var(--charcoal);
+    border-radius: 0.4rem;
+    color: #ffffff;
+    font-size: 0.875rem;
+    transition: border-color 0.2s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+}
+
+.form-input:disabled {
+    background-color: #1a1a1a;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.form-help {
+    font-size: 0.75rem;
+    color: var(--text-gray);
+    margin-top: 0.25rem;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-outline {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid var(--gold-hover);
+}
+
+.btn-outline:hover:not(:disabled) {
+    background-color: var(--gold);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: var(--gold);
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-page {
+        padding-top: 4rem;
+    }
+
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .form-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 1024px) {
+    .profile-layout {
+        grid-template-columns: 1fr 2fr;
+    }
+
+    .page-title {
+        font-size: 3rem;
+    }
+}

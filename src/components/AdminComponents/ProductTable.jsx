@@ -35,8 +35,9 @@ const ProductTable = ({
         <thead className="table-header">
           <tr role="row">
             <th className="index-column" scope="col">#</th>
-            {getHeaderCell('name', 'Product')}
-            {getHeaderCell('price', 'Price')}
+            {getHeaderCell('name', 'Productos')}
+            {getHeaderCell('category', 'Categoria')}
+            {getHeaderCell('price', 'Precio')}
             {getHeaderCell('stock', 'Stock')}
             {getHeaderCell('available', 'Status')}
             <th className="actions-column" scope="col">Acciones</th>
@@ -72,6 +73,11 @@ const ProductTable = ({
                     </div>
                   </div>
                 </div>
+              </td>
+              <td className="price-cell">
+                <span className="category" aria-label={`${product.category}`}>
+                  {product.category}
+                </span>
               </td>
               <td className="price-cell">
                 <span className="price" aria-label={`Price: $${product.price.toFixed(2)}`}>

@@ -29,7 +29,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));
     gap: 1.5rem;
-    width: 80%;
+    width: 78%;
     margin-left: auto;
     box-sizing: border-box;
 }
@@ -41,6 +41,9 @@
 
 .products-grid.list-view {
     grid-template-columns: 1fr;
+}
+.products-grid.filter_panel.list-view .products_item {
+    width: 100%;
 }
 
 .products_card-list.filter_panel {

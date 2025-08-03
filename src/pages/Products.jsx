@@ -10,11 +10,11 @@ import ProductFilters from '../components/ProductFilters';
 import ProductListItem from '../components/ProductListItem';
 
 export default function Products() {
-    const { products, loading, moreItems, loadingMoreProducts } = useProduct();
+    const { products, loading, moreItems, loadingMoreProducts ,ITEMS_PER_PAGE} = useProduct();
     const [showFilters, setShowFilters] = useState(false);
     const [view, setView] = useState('grid');
     const [currentPage, setCurrentPage] = useState(1);
-    const productsPerPage = 6;
+    
 
     const {
         filter,
@@ -32,10 +32,10 @@ export default function Products() {
         clearFilters,
     } = useProductFilter(products);
 
-    const indexOfLastProduct = currentPage * productsPerPage;
-    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const indexOfLastProduct = currentPage * ITEMS_PER_PAGE;
+    const indexOfFirstProduct = indexOfLastProduct - ITEMS_PER_PAGE;
     const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
-    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+    const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
 
     useEffect(() => {
         setCurrentPage(1);
