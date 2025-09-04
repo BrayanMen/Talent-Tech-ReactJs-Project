@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext.jsx';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext.jsx';
-import { CircleUser, ShoppingBasket } from 'lucide-react';
+import { CircleUser, PanelBottom, ShoppingBasket } from 'lucide-react';
 import './Navbar.css';
 
 const NavBar = ({ openLoginModal }) => {
@@ -62,8 +62,8 @@ const NavBar = ({ openLoginModal }) => {
         <header className="header_section">
             <div className="logo_container">
                 <h1 className={` logo_header ${isOpenMenu ? '' : 'open'}`}>
-                    <Link to="/" className='logo_text' >
-                    Amón <span>Luxary</span>
+                    <Link to="/" className="logo_text">
+                        Amón <span>Luxary</span>
                     </Link>
                 </h1>
             </div>
@@ -112,6 +112,11 @@ const NavBar = ({ openLoginModal }) => {
                                     >
                                         ❤️ Favoritos
                                     </button>
+                                    {user?.role === 'admin' && (
+                                        <Link to="/admin" className="dropdown-item" role="menuitem">
+                                            🗃️ Panel de Control
+                                        </Link>
+                                    )}
                                 </div>
                                 <div className="dropdown-divisor"></div>
                                 <button
