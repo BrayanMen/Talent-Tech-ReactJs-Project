@@ -27,8 +27,7 @@ export const ProductProvider = ({ children }) => {
                 if (!res.ok) throw new Error('Productos no encontrados');
 
                 const data = await res.json();
-                if (!data.success) throw new Error(data.message);
-                console.log('Data de productos --->: ', data.data);
+                if (!data.success) throw new Error(data.message);        
 
                 setProducts(data.data);
                 loadInitialProducts(data.data);

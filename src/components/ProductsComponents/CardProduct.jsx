@@ -63,13 +63,10 @@ export default function CardProduct({ product }) {
 
                     <div className="product_card-btns">
                         <div className="product_card-btns-content">
-                            <Link
-                                to={`/product/${product.id}`}
-                                className="product_card-btn btn-view"
-                                aria-label="Ver detalles"
+                            <div className="product_card-btn btn-view" aria-label="Ver detalles"
                             >
                                 <LucideEye size={30} />
-                            </Link>
+                            </div>
                             <button
                                 onClick={handleWishList}
                                 className={`product_card-btn ${inWishList ? 'active' : ''}`}

@@ -43,8 +43,6 @@ export const AuthProvider = ({ children }) => {
             });
             const userData = await res.json();
 
-            console.log('User Data:', userData.data);
-
             if (!userData.success) throw new Error('Sesion invalida');
 
             setUser(userData.data);
@@ -70,7 +68,6 @@ export const AuthProvider = ({ children }) => {
                 body: JSON.stringify({ email, password }),
             });
             const user = await res.json();
-            console.log('aqui ---->', user.data);
 
             if (!user.success) throw new Error(user.message);
 
@@ -102,8 +99,7 @@ export const AuthProvider = ({ children }) => {
             toast.show('Registro Exitoso!', 'success');
             return user.data;
         } catch (err) {
-            toast.show('Error al registrar usuario.', 'error');
-            console.error('Error al registrar usuario: ', err.message);
+            toast.show('Error al registrar usuario.', 'error');        
         } finally {
             setLoading(false);
         }

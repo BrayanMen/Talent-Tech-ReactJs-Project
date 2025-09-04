@@ -15,7 +15,9 @@ const ProductModal = ({
 }) => {
     if (!isOpen) return null;
 
-    const categories = () => [...new Set(products.map(p => p.category))];
+    const categories = [...new Set(products.map(p => p.category))];
+    console.log(categories);
+    
 
     return (
         <div
